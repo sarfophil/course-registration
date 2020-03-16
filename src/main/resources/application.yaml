@@ -1,0 +1,9 @@
+# MySQL Database Connection
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:3306/wind
+    username: root # your username
+    password: # you can provide your password
