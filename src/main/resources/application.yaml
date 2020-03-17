@@ -5,5 +5,5 @@ spring:
       ddl-auto: create
   datasource:
     url: jdbc:mysql://localhost:3306/wind
-    username: root # your username
-    password: # you can provide your password
+    username: root # your mysql username
+    password: # you can provide your mysql password
