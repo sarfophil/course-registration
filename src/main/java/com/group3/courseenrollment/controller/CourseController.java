@@ -61,7 +61,7 @@ public class CourseController {
 		if (isExist == null) {
 			return new ResponseEntity<Course>(HttpStatus.NOT_FOUND);
 		} 
-		courseService.updateCourse(courseId, isExist);
+		courseService.updateCourse(courseId, course);
 		headers.add("Course Updated  - ", String.valueOf(courseId));
 		return new ResponseEntity<Course>(course, headers, HttpStatus.OK);
 	}
