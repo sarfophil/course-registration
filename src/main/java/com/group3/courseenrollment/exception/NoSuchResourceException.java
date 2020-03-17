@@ -1,4 +1,4 @@
-package com.group3.courseenrollment;
+package com.group3.courseenrollment.exception;
 
 public class NoSuchResourceException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
