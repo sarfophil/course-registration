@@ -1,6 +1,7 @@
 package com.group3.courseenrollment.controller;
 
 import java.util.List;
+import com.group3.courseenrollment.exception.NoSuchResourceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -40,7 +39,7 @@ public class OfferingController {
 	}
 	
 	
-	@GetMapping("/offerings/offeringId")
+	@GetMapping("/offerings/{offeringId}")
 	public ResponseEntity<Offering> getOffering(@PathVariable long offeringId) {
 		Offering offering = offeringService.getOffering(offeringId);
 		if (offering == null) {
@@ -64,7 +63,7 @@ public class OfferingController {
 	
 	
 	@PutMapping("/offerings/{offeringId}")
-	public ResponseEntity<Offering> updateOffering(@PathVariable long offeringId,@RequestBody Offering offering) {
+	public ResponseEntity<Offering> updateOffering(@PathVariable long offeringId,@RequestBody Offering offering) throws NoSuchResourceException{
 		HttpHeaders headers = new HttpHeaders();
 		Offering isExist = offeringService.getOffering(offeringId);
 		if (isExist == null) {
@@ -77,7 +76,7 @@ public class OfferingController {
 	}
 	
 	@DeleteMapping("/offerings/delete/{offeringId}")
-	public ResponseEntity<Void> deleteOffering(@PathVariable long offeringId){
+	public ResponseEntity<Void> deleteOffering(@PathVariable long offeringId) throws NoSuchResourceException {
 		offeringService.deleteOffering(offeringId);
 		return  ResponseEntity.noContent().build(); 
 	}

@@ -1,6 +1,5 @@
 package com.group3.courseenrollment.controller;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.group3.courseenrollment.exception.NoSuchResourceException;
 
 import com.group3.courseenrollment.domain.Course;
 import com.group3.courseenrollment.service.CourseService;
@@ -40,13 +40,15 @@ public class CourseController {
 
 	@PostMapping("/course")
 	public ResponseEntity<Course> addCourse(@RequestBody Course course) {
-
+	
 		if (course == null) {
 			return new ResponseEntity<Course>(HttpStatus.BAD_REQUEST);
 		}
+		
 		courseService.addCourse(course);
-
-		return ResponseEntity.created(URI.create("/courses/" + course.getCode())).build();
+		
+		//return ResponseEntity.created(URI.create("/courses/" + course.getCode())).build();
+		return new ResponseEntity<Course>(course, HttpStatus.OK);
 	}
 
 	@GetMapping("/courses/{courseId}")
@@ -59,7 +61,7 @@ public class CourseController {
 	}
 
 	@PutMapping("/courses/{courseId}")
-	public ResponseEntity<Course> update(@PathVariable long courseId, @RequestBody Course course) {
+	public ResponseEntity<Course> update(@PathVariable long courseId, @RequestBody Course course) throws NoSuchResourceException  {
 		HttpHeaders headers = new HttpHeaders();
 		Course isExist = courseService.getCourse(courseId);
 		if (isExist == null) {
@@ -71,7 +73,7 @@ public class CourseController {
 	}
 
 	@DeleteMapping("/courses/delete/{courseId}")
-	public ResponseEntity<Void> deleteCourse(@PathVariable long courseId) {
+	public ResponseEntity<Void> deleteCourse(@PathVariable long courseId) throws NoSuchResourceException  {
 		courseService.deleteCourse(courseId);
 		return ResponseEntity.noContent().build();
 
