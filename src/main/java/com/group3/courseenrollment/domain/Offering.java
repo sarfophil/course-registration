@@ -1,14 +1,33 @@
 package com.group3.courseenrollment.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Offering {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String code;
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Course course;
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Block block;
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private List<Section>sections = new ArrayList<>();
 
-	public Offering(String code, Course course, Block block) {
+	public Offering(Course course, Block block) {
 		super();
-		this.code = code;
+		this.code = course.getCode()+"-"+block.getCode();
 		this.course = course;
 		this.block = block;
 	}
