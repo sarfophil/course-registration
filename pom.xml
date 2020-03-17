@@ -76,12 +76,27 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+<<<<<<< HEAD
 		
 		<dependency>
     <groupId>com.cedarsoftware</groupId>
     <artifactId>java-util</artifactId>
     <version>1.8.0</version>
 </dependency>
+=======
+
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.10.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson.version}</version>
+		</dependency>
+>>>>>>> 320d43b90ab6ffc142324f61294b12e22dc39f7b
 
 	</dependencies>
 
