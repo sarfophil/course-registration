@@ -48,11 +48,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         Optional<UsernamePasswordAuthenticationToken> authentication
                 = getAuthentication(request);
 
-        authentication.ifPresentOrElse(auth-> {
-            // Sets the current verified token to the SecurityContextHolder
-            SecurityContextHolder.getContext().setAuthentication(auth);
-        },()->{
-            log.info("Authentication not found");
+//        authentication.ifPresentOrElse(auth-> {
+//            // Sets the current verified token to the SecurityContextHolder
+//            SecurityContextHolder.getContext().setAuthentication(auth);
+//        },()->{
+//            log.info("Authentication not found");
+//        });
+        
+        authentication.ifPresent(auth->{
+        	SecurityContextHolder.getContext().setAuthentication(auth);
         });
 
 
