@@ -6,4 +6,4 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/wind
     username: root # your mysql username
-    password: mo7amed_3ezat # you can provide your mysql password
+    password: # you can provide your mysql password
