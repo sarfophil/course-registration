@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.group3.courseenrollment.configuration.ApplicationProperties;
 import com.group3.courseenrollment.domain.Credential;
 import com.group3.courseenrollment.dto.JwtTokenDto;
+import com.group3.courseenrollment.exception.InvalidAuthenticationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,13 +36,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private AuthenticationManager authenticationManager;
     private ApplicationProperties applicationProperties;
 
-
-
-
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager,ApplicationProperties applicationProperties) {
         this.authenticationManager = authenticationManager;
         this.applicationProperties = applicationProperties;
-
     }
 
 
@@ -71,7 +68,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     )
             );
         } catch (IOException e) {
-           throw new RuntimeException();
+           throw new InvalidAuthenticationException("Authentication failed");
         }
 
 
