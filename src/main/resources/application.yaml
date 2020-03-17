@@ -2,7 +2,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
   datasource:
     url: jdbc:mysql://localhost:3306/wind
     username: root # your mysql username
