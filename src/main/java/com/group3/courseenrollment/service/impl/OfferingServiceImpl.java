@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.group3.courseenrollment.NoSuchResourceException;
 import com.group3.courseenrollment.domain.Offering;
+import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.repository.OfferingRepository;
 import com.group3.courseenrollment.service.OfferingService;
 
