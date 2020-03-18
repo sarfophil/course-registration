@@ -1,18 +1,14 @@
 package com.group3.courseenrollment.domain;
 
 
-import org.springframework.data.annotation.CreatedDate;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
 
 
 @Entity
@@ -20,7 +16,9 @@ public class Enrollment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@FutureOrPresent
 	private LocalDate enrolStartDate;
+	@Future
 	private LocalDate enrolEndDate;
 
 	public Enrollment(LocalDate enrolStartDate, LocalDate enrolEndDate) {
