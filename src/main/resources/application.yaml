@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/wind
     username: root # your mysql username
-    password: # you can provide your mysql password
+    password:  # you can provide your mysql password
     initializationMode: always # loading data.sql
 
 # JWT secrets for signing tokens

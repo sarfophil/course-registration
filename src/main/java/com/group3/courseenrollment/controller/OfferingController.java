@@ -1,20 +1,14 @@
 package com.group3.courseenrollment.controller;
 
-import java.util.List;
-
+import com.group3.courseenrollment.domain.Offering;
+import com.group3.courseenrollment.service.OfferingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-
-import com.group3.courseenrollment.domain.Offering;
-import com.group3.courseenrollment.service.OfferingService;
+import java.util.List;
 
 
 @RestController
@@ -23,7 +17,8 @@ public class OfferingController {
 	@Autowired
 	private OfferingService offeringService;
 	
-	@RequestMapping(value="/offerings", method=RequestMethod.GET, produces = "application/json")
+
+	@GetMapping("/offerings")
 	public ResponseEntity<List<Offering>> getAllOfferings() {
 		HttpHeaders headers = new HttpHeaders();
 		List<Offering> offerings = offeringService.getAllOfferings();
@@ -34,16 +29,18 @@ public class OfferingController {
 		return new ResponseEntity<List<Offering>>(offerings, headers, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/offerings/{offeringID}", method=RequestMethod.GET)
-	public ResponseEntity<Offering> getOffering(@PathVariable long offeringID) {
-		Offering offering = offeringService.getOffering(offeringID);
+	
+	@GetMapping("/offerings/{offeringId}")
+	public ResponseEntity<Offering> getOffering(@PathVariable long offeringId) {
+		Offering offering = offeringService.getOffering(offeringId);
 		if (offering == null) {
 			return new ResponseEntity<Offering>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Offering>(offering, HttpStatus.OK);
 	}
 		
-	@RequestMapping(value="/offerings", method=RequestMethod.POST, produces = "application/json")
+	
+	@PostMapping("offerings")
 	public ResponseEntity<Offering> addOffering(@RequestBody Offering offering){
 		HttpHeaders headers = new HttpHeaders();
 		if (offering == null) {
@@ -56,7 +53,7 @@ public class OfferingController {
     }	
 	
 	
-	@RequestMapping(value="/offerings/{offeringId}", method=RequestMethod.PUT)
+	@PutMapping("/offerings/{offeringId}")
 	public ResponseEntity<Offering> updateOffering(@PathVariable long offeringId,@RequestBody Offering offering) {
 		HttpHeaders headers = new HttpHeaders();
 		Offering isExist = offeringService.getOffering(offeringId);
@@ -69,10 +66,12 @@ public class OfferingController {
 		
 	}
 	
-	@RequestMapping(value="/offerings/delete/{offeringId}", method=RequestMethod.DELETE)
+	@DeleteMapping("/offerings/delete/{offeringId}")
 	public ResponseEntity<Void> deleteOffering(@PathVariable long offeringId){
 		offeringService.deleteOffering(offeringId);
 		return  ResponseEntity.noContent().build(); 
 	}
+
+
 	
 }
