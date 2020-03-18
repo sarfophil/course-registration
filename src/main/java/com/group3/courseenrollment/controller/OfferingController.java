@@ -56,6 +56,7 @@ public class OfferingController {
 	}
 		
 	
+<<<<<<< Updated upstream
 	@PostMapping("offerings")
 	public ResponseEntity<Offering> addOffering(@RequestBody Offering offering){
 		HttpHeaders headers = new HttpHeaders();
@@ -65,6 +66,14 @@ public class OfferingController {
 		offeringService.addOffering(offering);
 		headers.add("Offering Created  - ", String.valueOf(offering.getId()));
 		return new ResponseEntity<Offering>(offering, headers, HttpStatus.CREATED);
+=======
+	@PostMapping("/offerings")
+	public ResponseEntity<Offering> addOffering(@RequestBody @Valid OfferingDto offeringDto){
+
+		Offering offering = offeringService.addOffering(offeringDto);
+
+		return new ResponseEntity<Offering>(offering,HttpStatus.CREATED);
+>>>>>>> Stashed changes
 		 
     }	
 	
@@ -82,7 +91,7 @@ public class OfferingController {
 		
 	}
 	
-	@DeleteMapping("/offerings/delete/{offeringId}")
+	@DeleteMapping("/offerings/{offeringId}")
 	public ResponseEntity<Void> deleteOffering(@PathVariable long offeringId) throws NoSuchResourceException {
 		offeringService.deleteOffering(offeringId);
 		return  ResponseEntity.noContent().build(); 

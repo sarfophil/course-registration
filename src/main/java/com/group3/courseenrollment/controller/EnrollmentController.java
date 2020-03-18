@@ -56,6 +56,15 @@ public class EnrollmentController {
 		List<Enrollment> enrollments = studentService.loadEnrollmentByStudent(studentId);
 		return ResponseEntity.ok(enrollments);
 	}
+<<<<<<< Updated upstream
 	 
+=======
+
+	@PutMapping("/enrollments/{enrollmentId}")
+	public ResponseEntity<Void> updateEnrollment(@PathVariable Long enrollmentId,@RequestBody Enrollment enrollment){
+		enrollmentService.updateEnrollment(enrollmentId,enrollment);
+		return ResponseEntity.ok().build();
+	} 
+>>>>>>> Stashed changes
 
 }
