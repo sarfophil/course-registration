@@ -19,3 +19,4 @@ com:
             token-prefix: "Bearer "
             header-string: "Authorization"
             issuer: 'wind-group'
+         enrollmentLimitPerStudent: 4 # Enrollment Limit Per Student

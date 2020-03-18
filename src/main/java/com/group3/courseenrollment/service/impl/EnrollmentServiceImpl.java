@@ -40,12 +40,8 @@ public class EnrollmentServiceImpl implements EnrollmentService{
     public Enrollment updateEnrollment(long enrollmentId, Enrollment new_Enrollment) throws NoSuchResourceException{
         Enrollment enrollment = enrollmentRepository.findById(enrollmentId)
                 .orElseThrow(() -> new NoSuchResourceException("Can't find enrollment", enrollmentId));
-        enrollment.setStudent(new_Enrollment.getStudent());
-        enrollment.setSection(new_Enrollment.getSection());
 
-        final Enrollment updated_Enrollment = enrollmentRepository.save(enrollment);
-
-        return updated_Enrollment;
+        return enrollmentRepository.save(enrollment);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
