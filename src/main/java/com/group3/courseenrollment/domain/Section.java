@@ -8,15 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
 public class Section {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@ManyToMany(mappedBy = "sectionList")
-	private List<Student> studentList = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private List<Enrollment> enrollmentList = new ArrayList<>();
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Faculty faculty;
 	public Section(Faculty faculty) {
@@ -33,11 +33,11 @@ public class Section {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public List<Student> getStudentList() {
-		return studentList;
+	public List<Enrollment> getStudentList() {
+		return enrollmentList;
 	}
-	public void setStudentList(List<Student> studentList) {
-		this.studentList = studentList;
+	public void setEnrollment(List<Enrollment> enrollmentList) {
+		this.enrollmentList = enrollmentList;
 	}
 	public Faculty getFaculty() {
 		return faculty;
@@ -45,8 +45,8 @@ public class Section {
 	public void setFaculty(Faculty faculty) {
 		this.faculty = faculty;
 	}
-	public void addStudent(Student student) {
-		studentList.add(student);
+	public void addStudent(Enrollment enrollment) {
+		enrollmentList.add(enrollment);
 	}
 	
 		
