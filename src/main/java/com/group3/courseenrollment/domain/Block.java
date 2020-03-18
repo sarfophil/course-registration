@@ -1,5 +1,8 @@
 package com.group3.courseenrollment.domain;
 
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -17,12 +20,10 @@ public class Block {
 	private String name;
 	private String semester;
 	private String blockSeqNum;
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
-	@Temporal(TemporalType.DATE)
-	private Date endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 
-	public Block(String code, String name, String semester, String blockSeqNum, Date startDate, Date endDate) {
+	public Block(String code, String name, String semester, String blockSeqNum, LocalDate startDate, LocalDate endDate) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -76,20 +77,19 @@ public class Block {
 		this.blockSeqNum = blockSeqNum;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
-
 }

@@ -7,6 +7,8 @@ import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.domain.Offering;
 import com.group3.courseenrollment.service.OfferingService;
 
+
+import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,6 @@ public class OfferingController {
 	
 	@Autowired
 	private OfferingService offeringService;
-	
 
 	@GetMapping("/offerings")
 	public ResponseEntity<List<Offering>> getAllOfferings() {

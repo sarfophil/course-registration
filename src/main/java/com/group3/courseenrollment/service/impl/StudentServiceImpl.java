@@ -10,6 +10,7 @@ import com.group3.courseenrollment.repository.EntryRepository;
 import com.group3.courseenrollment.repository.SectionRepository;
 import com.group3.courseenrollment.repository.StudentRepository;
 import com.group3.courseenrollment.service.StudentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+
+@Slf4j
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -49,6 +52,7 @@ public class StudentServiceImpl implements StudentService {
             throw new EnrollmentLimitExceededException("Student Enrollment should choose "
                     +applicationProperties.getEnrollmentLimitPerStudent());
         }
+
 
         // Lookup for student
         Optional<Student> optionalStudent = studentRepository.findByStudentId(studentId);

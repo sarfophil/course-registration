@@ -1,6 +1,10 @@
 package com.group3.courseenrollment.domain;
 
 
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -16,12 +20,10 @@ public class Enrollment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Temporal(TemporalType.DATE)
-	private Date enrolStartDate;
-	@Temporal(TemporalType.DATE)
-	private Date enrolEndDate;
+	private LocalDate enrolStartDate;
+	private LocalDate enrolEndDate;
 
-	public Enrollment(Date enrolStartDate, Date enrolEndDate) {
+	public Enrollment(LocalDate enrolStartDate, LocalDate enrolEndDate) {
 		super();
 		this.enrolStartDate = enrolStartDate;
 		this.enrolEndDate = enrolEndDate;
@@ -39,23 +41,21 @@ public class Enrollment {
 		this.id = id;
 	}
 
-	public Date getEnrolStartDate() {
+	public LocalDate getEnrolStartDate() {
 		return enrolStartDate;
 	}
 
-	public void setEnrolStartDate(Date enrolStartDate) {
+	public void setEnrolStartDate(LocalDate enrolStartDate) {
 		this.enrolStartDate = enrolStartDate;
 	}
 
-	public Date getEnrolEndDate() {
+	public LocalDate getEnrolEndDate() {
 		return enrolEndDate;
 	}
 
-	public void setEnrolEndDate(Date enrolEndDate) {
+	public void setEnrolEndDate(LocalDate enrolEndDate) {
 		this.enrolEndDate = enrolEndDate;
 	}
-
-
 }
 
 
