@@ -1,40 +1,59 @@
 package com.group3.courseenrollment.domain;
 
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 
 @Entity
 public class Enrollment {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	private Student student;
-	private Section section;
-	
-	public Enrollment(Student student, Section section) {
+	@Temporal(TemporalType.DATE)
+	private Date enrolStartDate;
+	@Temporal(TemporalType.DATE)
+	private Date enrolEndDate;
+
+	public Enrollment(Date enrolStartDate, Date enrolEndDate) {
 		super();
-		this.student = student;
-		this.section = section;
-	}
-	
-	
-	public Enrollment() {
+		this.enrolStartDate = enrolStartDate;
+		this.enrolEndDate = enrolEndDate;
 	}
 
-	public Student getStudent() {
-		return student;
+	public Enrollment() {
+
 	}
-	public void setStudent(Student student) {
-		this.student = student;
+
+	public long getId() {
+		return id;
 	}
-	public Section getSection() {
-		return section;
+
+	public void setId(long id) {
+		this.id = id;
 	}
-	public void setSection(Section section) {
-		this.section = section;
+
+	public Date getEnrolStartDate() {
+		return enrolStartDate;
 	}
-	
-	
+
+	public void setEnrolStartDate(Date enrolStartDate) {
+		this.enrolStartDate = enrolStartDate;
+	}
+
+	public Date getEnrolEndDate() {
+		return enrolEndDate;
+	}
+
+	public void setEnrolEndDate(Date enrolEndDate) {
+		this.enrolEndDate = enrolEndDate;
+	}
+
+
 }
