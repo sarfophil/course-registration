@@ -56,7 +56,7 @@ public class OfferingController {
 	}
 		
 	
-<<<<<<< Updated upstream
+
 	@PostMapping("offerings")
 	public ResponseEntity<Offering> addOffering(@RequestBody Offering offering){
 		HttpHeaders headers = new HttpHeaders();
@@ -66,14 +66,14 @@ public class OfferingController {
 		offeringService.addOffering(offering);
 		headers.add("Offering Created  - ", String.valueOf(offering.getId()));
 		return new ResponseEntity<Offering>(offering, headers, HttpStatus.CREATED);
-=======
+	}
 	@PostMapping("/offerings")
 	public ResponseEntity<Offering> addOffering(@RequestBody @Valid OfferingDto offeringDto){
 
 		Offering offering = offeringService.addOffering(offeringDto);
 
 		return new ResponseEntity<Offering>(offering,HttpStatus.CREATED);
->>>>>>> Stashed changes
+
 		 
     }	
 	
