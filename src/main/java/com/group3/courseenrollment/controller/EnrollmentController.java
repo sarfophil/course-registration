@@ -1,7 +1,10 @@
 package com.group3.courseenrollment.controller;
 
+import java.net.URI;
 import java.util.List;
 
+import com.group3.courseenrollment.dto.StudentEnrollmentDto;
+import com.group3.courseenrollment.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,11 +21,16 @@ import com.group3.courseenrollment.domain.Enrollment;
 import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.service.EnrollmentService;
 
+import javax.validation.Valid;
+
 @RestController
 public class EnrollmentController {
 	@Autowired
 	private EnrollmentService enrollmentService;
-	
+
+	@Autowired
+	private StudentService studentService;
+
 	@GetMapping("/enrollments")
 	public ResponseEntity<List<Enrollment>> getAllEnrollments() {
 		HttpHeaders headers = new HttpHeaders();
@@ -37,42 +45,17 @@ public class EnrollmentController {
 	}
 	 
 	@PostMapping("/enrollments")
-	public ResponseEntity<Enrollment> addEnrollment(@RequestBody Enrollment enrollment) throws NoSuchResourceException {
-		HttpHeaders headers = new HttpHeaders();
-		
-		if (enrollment == null) {
-			return new ResponseEntity<Enrollment>(HttpStatus.BAD_REQUEST);
-		}
-		
-		enrollmentService.addEnrollment(enrollment);
-		headers.add("Enrollment Created  - ", String.valueOf(enrollment.getId()));
-		return new ResponseEntity<Enrollment>(enrollment, headers, HttpStatus.CREATED);
+	public ResponseEntity<Enrollment> addEnrollment(@RequestBody @Valid StudentEnrollmentDto studentEnrollmentDto) {
+		studentService.addEnrollment(studentEnrollmentDto.getStudentId(),
+				studentEnrollmentDto.getEnrollments(),studentEnrollmentDto.getSectionId());
+		return ResponseEntity.created(URI.create("/enrollments/"+studentEnrollmentDto.getStudentId())).build();
 	}
 	 
-	@GetMapping("/enrollments/{enrollmentId}")
-	public ResponseEntity<Enrollment> getEnrollment(@PathVariable long enrollmentId) {
-		Enrollment enrollment = enrollmentService.getEnrollment(enrollmentId);
-		if (enrollment == null) {
-			return new ResponseEntity<Enrollment>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Enrollment>(enrollment, HttpStatus.OK);
+	@GetMapping("/enrollments/{studentId}")
+	public ResponseEntity<List<Enrollment>> getEnrollment(@PathVariable long studentId) {
+		List<Enrollment> enrollments = studentService.loadEnrollmentByStudent(studentId);
+		return ResponseEntity.ok(enrollments);
 	}
 	 
-	@PutMapping("/enrollments/{enrollmentId}")
-	public ResponseEntity<Enrollment> updateEnrollment(@PathVariable long enrollmentId, @RequestBody Enrollment new_Enrollment) throws NoSuchResourceException {
-		HttpHeaders headers = new HttpHeaders();
-		Enrollment isExist = enrollmentService.getEnrollment(enrollmentId);
-		if (isExist == null) {
-			return new ResponseEntity<Enrollment>(HttpStatus.NOT_FOUND);
-		} 
-		enrollmentService.updateEnrollment(enrollmentId, new_Enrollment);
-		headers.add("Enrollment Updated  - ", String.valueOf(enrollmentId));
-		return new ResponseEntity<Enrollment>(new_Enrollment, headers, HttpStatus.OK);
-	} 
-	
-	@DeleteMapping("/enrollments/delete/{enrollmentId}")
-	public ResponseEntity<Void> deleteEnrollment(@PathVariable long enrollmentId) throws NoSuchResourceException {
-		enrollmentService.deleteEnrollment(enrollmentId);
-		return  ResponseEntity.noContent().build(); 
-	}
+
 }

@@ -5,20 +5,14 @@ import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private long student_id;
+	private long studentId;
 	private String name;
 	private String email;
 
@@ -33,9 +27,9 @@ public class Student {
 
 
 
-	public Student(long student_id, String name, String email, Address mailingAddress, Address homeAddress) {
+	public Student(long studentId, String name, String email, Address mailingAddress, Address homeAddress) {
 		super();
-		this.student_id = student_id;
+		this.studentId = studentId;
 		this.name = name;
 		this.email = email;
 		this.mailingAddress = mailingAddress;
@@ -55,11 +49,11 @@ public class Student {
 	}
 
 	public long getStudent_id() {
-		return student_id;
+		return studentId;
 	}
 
 	public void setStudent_id(long student_id) {
-		this.student_id = student_id;
+		this.studentId = student_id;
 	}
 
 	public String getName() {

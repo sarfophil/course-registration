@@ -25,12 +25,15 @@ public class Entry {
 	private Date enrolStartDate;
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Student> studentList = new ArrayList<Student>();
+	private Boolean hasWriteAccess;
 
 	public Entry(String name, Date startDate, Date enrolStartDate) {
 		super();
 		this.name = name;
 		this.startDate = startDate;
 		this.enrolStartDate = enrolStartDate;
+
+		this.hasWriteAccess = true;
 	}
 
 	public Entry() {
@@ -79,5 +82,13 @@ public class Entry {
 
 	public void addStudent(Student student) {
 		studentList.add(student);
+	}
+
+	public void setHasWriteAccess(Boolean hasWriteAccess) {
+		this.hasWriteAccess = hasWriteAccess;
+	}
+
+	public Boolean getHasWriteAccess() {
+		return hasWriteAccess;
 	}
 }
