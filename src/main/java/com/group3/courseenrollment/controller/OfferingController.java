@@ -1,44 +1,27 @@
 package com.group3.courseenrollment.controller;
 
 
-import java.util.List;
-
-import com.group3.courseenrollment.dto.OfferingDto;
-import com.group3.courseenrollment.exception.NoSuchResourceException;
-
 import com.group3.courseenrollment.domain.Offering;
+import com.group3.courseenrollment.dto.OfferingDto;
 import com.group3.courseenrollment.service.OfferingService;
-
-
-import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-
 import org.springframework.web.bind.annotation.*;
-
 
 import javax.validation.Valid;
 import java.util.List;
 
 
 @RestController
+@RequestMapping("/offerings")
 public class OfferingController {
 	
 	@Autowired
 	private OfferingService offeringService;
 
-	@GetMapping("/offerings")
+	@GetMapping("/")
 	public ResponseEntity<List<Offering>> getAllOfferings() {
 		HttpHeaders headers = new HttpHeaders();
 		List<Offering> offerings = offeringService.getAllOfferings();
@@ -50,7 +33,7 @@ public class OfferingController {
 	}
 	
 	
-	@GetMapping("/offerings/{offeringId}")
+	@GetMapping("/{offeringId}")
 	public ResponseEntity<Offering> getOffering(@PathVariable long offeringId) {
 		Offering offering = offeringService.getOffering(offeringId);
 		if (offering == null) {
@@ -60,7 +43,7 @@ public class OfferingController {
 	}
 		
 	
-	@PostMapping("offerings")
+	@PostMapping("/")
 	public ResponseEntity<Offering> addOffering(@RequestBody @Valid OfferingDto offeringDto){
 
 		Offering offering = offeringService.addOffering(offeringDto);
@@ -69,25 +52,7 @@ public class OfferingController {
 		 
     }	
 	
-	//TODO: Work on this
-	@PutMapping("/offerings/{offeringId}")
-	public ResponseEntity<Offering> updateOffering(@PathVariable long offeringId,@RequestBody Offering offering) throws NoSuchResourceException{
-		HttpHeaders headers = new HttpHeaders();
-		Offering isExist = offeringService.getOffering(offeringId);
-		if (isExist == null) {
-			return new ResponseEntity<Offering>(HttpStatus.NOT_FOUND);
-		} 
-		offeringService.updateOffering(offeringId, offering);
-		headers.add("Offering Updated  - ", String.valueOf(offeringId));
-		return new ResponseEntity<Offering>(offering, headers, HttpStatus.OK);
-		
-	}
-	
-	@DeleteMapping("/offerings/delete/{offeringId}")
-	public ResponseEntity<Void> deleteOffering(@PathVariable long offeringId) throws NoSuchResourceException {
-		offeringService.deleteOffering(offeringId);
-		return  ResponseEntity.noContent().build(); 
-	}
+
 
 
 	

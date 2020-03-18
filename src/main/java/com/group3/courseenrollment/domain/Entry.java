@@ -22,16 +22,17 @@ public class Entry {
 	private String name;
 	private LocalDate startDate;
 	private LocalDate enrolStartDate;
+	private LocalDate enrolEndDate;
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Student> studentList = new ArrayList<Student>();
 	private Boolean hasWriteAccess;
 
-	public Entry(String name, LocalDate startDate, LocalDate enrolStartDate) {
+	public Entry(String name, LocalDate startDate, LocalDate enrolStartDate,LocalDate enrolEndDate) {
 		super();
 		this.name = name;
 		this.startDate = startDate;
 		this.enrolStartDate = enrolStartDate;
-
+		this.enrolEndDate = enrolEndDate;
 		this.hasWriteAccess = true;
 	}
 
@@ -97,5 +98,13 @@ public class Entry {
 
 	public Boolean getHasWriteAccess() {
 		return hasWriteAccess;
+	}
+
+	public LocalDate getEnrolEndDate() {
+		return enrolEndDate;
+	}
+
+	public void setEnrolEndDate(LocalDate enrolEndDate) {
+		this.enrolEndDate = enrolEndDate;
 	}
 }

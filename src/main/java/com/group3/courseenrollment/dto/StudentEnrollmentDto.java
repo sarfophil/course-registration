@@ -9,17 +9,11 @@ import java.util.List;
 
 @Data
 public class StudentEnrollmentDto {
-    @NonNull
-    private Long studentId;
-    @NonNull
-    private Long sectionId;
 
     @NonNull
     private List<Enrollment> enrollments;
 
-    public StudentEnrollmentDto(Long studentId,Long sectionId,List<Enrollment> enrollments){
-        this.studentId = studentId;
-        this.sectionId = sectionId;
+    public StudentEnrollmentDto(List<Enrollment> enrollments){
         this.enrollments = enrollments;
     }
 }

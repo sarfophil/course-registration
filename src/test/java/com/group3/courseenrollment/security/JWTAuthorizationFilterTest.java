@@ -20,7 +20,6 @@ public class JWTAuthorizationFilterTest {
         String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1MzgwMDE2LCJpYXQiOjE1ODQ1MTYwMTZ9.PMoshzdpQIjji8iMGugr7ukq5xHzPc9C09EQhSdtCwp6FC4VWhH58zqrUsw6iVu75jXZefVvoEJ0ZGuP8rhuqw";
         Claim claim = getClaim(token);
         List<String> list = claim.asList(String.class);
-        System.out.println(list);
         assertNotNull(claim);
     }
 

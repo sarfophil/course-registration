@@ -7,13 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.group3.courseenrollment.exception.NoSuchResourceException;
 
 import com.group3.courseenrollment.domain.Course;
@@ -23,12 +17,13 @@ import com.group3.courseenrollment.service.CourseService;
  *
  */
 @RestController
+@RequestMapping("/courses")
 public class CourseController {
 
 	@Autowired
 	private CourseService courseService;
 
-	@GetMapping("/courses")
+	@GetMapping("/")
 	public ResponseEntity<List<Course>> getAllCourses() {
 		HttpHeaders headers = new HttpHeaders();
 		List<Course> courses = courseService.getAllCourses();
@@ -42,7 +37,7 @@ public class CourseController {
 
 	}
 
-	@PostMapping("/courses")
+	@PostMapping("/")
 	public ResponseEntity<Course> addCourse(@RequestBody Course course) {
 	
 		if (course == null) {
@@ -54,7 +49,7 @@ public class CourseController {
 		return ResponseEntity.created(URI.create("/courses/" + course.getCode())).build();
 	}
 
-	@GetMapping("/courses/{courseId}")
+	@GetMapping("/{courseId}")
 	public ResponseEntity<Course> getCourse(@PathVariable String courseId) {
 	    try {
             Course course = courseService.getCourse(courseId);
@@ -65,7 +60,7 @@ public class CourseController {
 
 	}
 
-	@PutMapping("/courses/{courseId}")
+	@PutMapping("/{courseId}")
 	public ResponseEntity<Course> update(@PathVariable String courseId, @RequestBody Course course)   {
 		HttpHeaders headers = new HttpHeaders();
 		try {
@@ -80,12 +75,5 @@ public class CourseController {
 		return new ResponseEntity<Course>(course, headers, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/courses/{courseId}")
-	public ResponseEntity<Void> deleteCourse(@PathVariable String courseId) {
 
-		courseService.deleteCourse(courseId);
-		//return ResponseEntity.noContent().build();
-		return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
-
-	}
 }

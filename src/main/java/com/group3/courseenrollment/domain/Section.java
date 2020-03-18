@@ -1,5 +1,7 @@
 package com.group3.courseenrollment.domain;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+@Data
 @Entity
 public class Section {
 	@Id
@@ -27,27 +31,5 @@ public class Section {
 	public Section() {
 		
 	}
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public List<Enrollment> getStudentList() {
-		return enrollmentList;
-	}
-	public void setEnrollment(List<Enrollment> enrollmentList) {
-		this.enrollmentList = enrollmentList;
-	}
-	public Faculty getFaculty() {
-		return faculty;
-	}
-	public void setFaculty(Faculty faculty) {
-		this.faculty = faculty;
-	}
-	public void addStudent(Enrollment enrollment) {
-		enrollmentList.add(enrollment);
-	}
-	
-		
+
 }

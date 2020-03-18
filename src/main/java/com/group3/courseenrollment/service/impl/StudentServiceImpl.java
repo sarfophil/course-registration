@@ -42,7 +42,7 @@ public class StudentServiceImpl implements StudentService {
     @Secured("ROLE_STUDENT")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void addEnrollment(Long studentId,List<Enrollment> enrollments,Long sectionId)
+    public void addEnrollment(Long studentId,List<Enrollment> enrollments)
             throws EnrollmentLimitExceededException,NoSuchElementException{
 
 
@@ -54,33 +54,33 @@ public class StudentServiceImpl implements StudentService {
         }
 
 
+
+
         // Lookup for student
         Optional<Student> optionalStudent = studentRepository.findByStudentId(studentId);
         optionalStudent.orElseThrow(()-> new NoSuchElementException("Student not found"));
 
-        // Look for Section
-        Optional<Section> optionalSection = sectionRepository.findById(studentId);
-        optionalSection.orElseThrow(()-> new NoSuchElementException("Section not found"));
-
-
-
-
 
         Student student = optionalStudent.get();
-        Section section = optionalSection.get();
+
+        if(!student.getEnrollmentList().isEmpty())
+            throw new EnrollmentLimitExceededException("Student Enrollment should choose "
+                +applicationProperties.getEnrollmentLimitPerStudent());
+
 
         if(validateEnrollmentPeriodAndEnrollments(student,enrollments)){
 
             student.setEnrollmentList(enrollments);
-            section.setEnrollment(enrollments);
+
 
             studentRepository.save(student);
-            sectionRepository.save(section);
+
         }
 
 
     }
 
+    @Secured({"ROLE_FACULTY","ROLE_STUDENT"})
     @Override
     public List<Enrollment> loadEnrollmentByStudent(Long student) throws NoSuchElementException{
         // Lookup for student
@@ -89,6 +89,18 @@ public class StudentServiceImpl implements StudentService {
 
         return optionalStudent.get().getEnrollmentList();
     }
+
+
+    @Secured({"ROLE_FACULTY","ROLE_STUDENT"})
+    @Override
+    public Optional<Enrollment> loadStudentEnrollmentByEnrollmentId(Long enrollment, Long studentId) {
+
+        return studentRepository
+                .findByEnrollmentListIdAndStudentId(enrollment,studentId)
+                .get().getEnrollmentList().stream().filter(enrollment1 -> enrollment1.getId() == enrollment)
+                .findFirst();
+    }
+
 
     @Override
     public void addStudent(Student student) {

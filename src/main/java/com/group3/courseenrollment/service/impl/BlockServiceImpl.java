@@ -1,18 +1,20 @@
 package com.group3.courseenrollment.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.group3.courseenrollment.domain.Block;
 import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.repository.BlockRepository;
 import com.group3.courseenrollment.service.BlockService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+
+@Service
 public class BlockServiceImpl implements BlockService {
 
 	@Autowired

@@ -26,11 +26,6 @@ public class EnrollmentServiceImpl implements EnrollmentService{
         return enrollmentRepository.findAll();
     }
 
-    @Secured("ROLE_ADMIN")
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Enrollment addEnrollment(Enrollment enrollment){
-        return enrollmentRepository.save(enrollment);
-    }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Enrollment getEnrollment(long enrollmentId) throws NoSuchResourceException{
@@ -41,11 +36,15 @@ public class EnrollmentServiceImpl implements EnrollmentService{
 
     @Secured("ROLE_ADMIN")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Enrollment updateEnrollment(long enrollmentId, Enrollment new_Enrollment) throws NoSuchResourceException{
-        Enrollment enrollment = enrollmentRepository.findById(enrollmentId)
+    public Enrollment updateEnrollment(long enrollmentId,Long studentId, Enrollment enrollment)
+            throws NoSuchResourceException{
+        Enrollment enrollment1 = enrollmentRepository.findById(enrollmentId)
                 .orElseThrow(() -> new NoSuchResourceException("Can't find enrollment", enrollmentId));
 
-        return enrollmentRepository.save(enrollment);
+        enrollment1.setEnrolStartDate(enrollment.getEnrolStartDate());
+        enrollment1.setEnrolEndDate(enrollment.getEnrolEndDate());
+
+        return enrollmentRepository.save(enrollment1);
     }
 
     @Secured("ROLE_ADMIN")

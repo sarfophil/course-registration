@@ -9,16 +9,8 @@ import com.group3.courseenrollment.exception.NoSuchResourceException;
 
 
 public interface EnrollmentService {
-	
-	 public List<Enrollment> getAllEnrollments();
 
-	 
-	 public Enrollment addEnrollment(Enrollment enrollment);
-	 
-	 public Enrollment getEnrollment(long enrollmentId) throws NoSuchResourceException;
-	 
-	 public Enrollment updateEnrollment(long enrollmentId, Enrollment new_Enrollment) throws NoSuchResourceException; 
-	 
-	 public ResponseEntity<Void> deleteEnrollment(long enrollmentId) throws NoSuchResourceException;
+	 public Enrollment updateEnrollment(long enrollmentId,Long studentId, Enrollment enrollment)
+			 throws NoSuchResourceException;
 
 }

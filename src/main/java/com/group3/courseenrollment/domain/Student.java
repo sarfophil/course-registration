@@ -22,7 +22,7 @@ public class Student {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Address homeAddress;
 	
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Enrollment> enrollmentList = new ArrayList<>();
 
 
