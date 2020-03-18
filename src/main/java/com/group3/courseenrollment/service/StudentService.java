@@ -6,6 +6,7 @@ import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public interface StudentService {
     /**
@@ -14,10 +15,12 @@ public interface StudentService {
      * @param enrollments
      * @throws EnrollmentLimitExceededException
      */
-    public void addEnrollment(Long studentId,List<Enrollment> enrollments,Long sectionId)
+    public void addEnrollment(Long studentId,List<Enrollment> enrollments)
             throws EnrollmentLimitExceededException,NoSuchElementException;
 
     public List<Enrollment> loadEnrollmentByStudent(Long student);
+
+    public Optional<Enrollment> loadStudentEnrollmentByEnrollmentId(Long enrollment,Long studentId);
 
     public void addStudent(Student student);
 

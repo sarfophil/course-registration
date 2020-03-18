@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.group3.courseenrollment.domain.Enrollment;
 
+import java.util.Optional;
+
 
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Long>{
+
+    Optional<Enrollment> findById(Long aLong);
 }

@@ -1,9 +1,19 @@
 package com.group3.courseenrollment.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.group3.courseenrollment.domain.Enrollment;
+import com.group3.courseenrollment.domain.Faculty;
+import com.group3.courseenrollment.dto.SectionDto;
+import com.group3.courseenrollment.repository.EnrollmentRepository;
+import com.group3.courseenrollment.repository.FacultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,12 +22,21 @@ import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.repository.SectionRepository;
 import com.group3.courseenrollment.service.SectionService;
 
+
+@Service
 public class SectionServiceImpl implements SectionService{
 	
 	@Autowired
     private SectionRepository sectionRepository;
 
-    @Secured({"ROLE_STUDENT","ROLE_ADMIN"})
+	@Autowired
+    private EnrollmentRepository enrollmentRepository;
+
+
+	@Autowired
+    private FacultyRepository facultyRepository;
+
+    @Secured("ROLE_ADMIN")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Section> getAllSections(){
         return sectionRepository.findAll();
@@ -25,7 +44,19 @@ public class SectionServiceImpl implements SectionService{
 
     @Secured("ROLE_ADMIN")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Section addSection(Section section){
+    public Section addSection(SectionDto sectionDto) throws NoSuchElementException{
+        List<Enrollment> enrollments = sectionDto.getEnrollmentCodes().stream().map(enrollmentCode->{
+            return enrollmentRepository.findById(enrollmentCode).get();
+        }).collect(Collectors.toList());
+
+        // Lookup for Faculty
+        Optional<Faculty> findFaculty = facultyRepository.findById(sectionDto.getFacultyId());
+        findFaculty.orElseThrow(()->new NoSuchElementException("No Such Faculty"));
+
+        Section section = new Section(findFaculty.get());
+        section.setEnrollmentList(enrollments);
+
+
         return sectionRepository.save(section);
     }
 

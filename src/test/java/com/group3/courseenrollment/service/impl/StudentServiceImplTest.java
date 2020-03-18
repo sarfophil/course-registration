@@ -62,7 +62,7 @@ public class StudentServiceImplTest {
         );
         Section section = createSection();
 
-       doNothing().when(studentService).addEnrollment(343L,enrollments,section.getId());
+       doNothing().when(studentService).addEnrollment(343L,enrollments);
     }
 
     private Date temporalDate(){

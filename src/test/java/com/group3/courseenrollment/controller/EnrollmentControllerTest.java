@@ -79,34 +79,8 @@ public class EnrollmentControllerTest {
         }
     }
 
-    @Test
-    public void addEnrollment() throws Exception {
-        StudentEnrollmentDto studentEnrollmentDto = new StudentEnrollmentDto(2343L,sectionId,enrollmentList());
-        // Converts StudentEnrollment to json
-        String studentEnrollmentDtoToJson = requestJson(studentEnrollmentDto);
-        mockMvc.perform(post("/enrollments")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(studentEnrollmentDtoToJson))
-                .andExpect(status().isCreated())
-                .andReturn();
-    }
 
-    /**
-     * Should return not found and Ok status
-     * @throws Exception
-     */
-    @Test
-    public void getEnrollment() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/enrollments/2343")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andReturn();
-        if(mvcResult.getResponse().getStatus() == 404 || mvcResult.getResponse().getStatus() == 200){
-            assertTrue(true);
-        }else {
-            fail();
-        }
 
-    }
 
 
     private void persistData(){
