@@ -14,7 +14,7 @@ import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.repository.EnrollmentRepository;
 import com.group3.courseenrollment.service.EnrollmentService;
 
-@Secured({"ROLE_FACULTY","ROLE_ADMIN","ROLE_STUDENT"})
+
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService{
 	
@@ -26,6 +26,7 @@ public class EnrollmentServiceImpl implements EnrollmentService{
         return enrollmentRepository.findAll();
     }
 
+    @Secured("ROLE_ADMIN")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Enrollment addEnrollment(Enrollment enrollment){
         return enrollmentRepository.save(enrollment);

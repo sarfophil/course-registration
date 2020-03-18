@@ -16,7 +16,6 @@ public class Credential {
     private String password;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     private List<Role> roles = new ArrayList<>();
-
-
 }
