@@ -75,11 +75,5 @@ public class CourseController {
 		return new ResponseEntity<Course>(course, headers, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{courseId}")
-	public ResponseEntity<Void> deleteCourse(@PathVariable String courseId) {
 
-		courseService.deleteCourse(courseId);
-		return ResponseEntity.noContent().build();
-
-	}
 }
