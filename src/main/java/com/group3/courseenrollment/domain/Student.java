@@ -1,5 +1,7 @@
 package com.group3.courseenrollment.domain;
 
+import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,8 @@ public class Student {
 	
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Enrollment> enrollmentList = new ArrayList<>();
+
+
 
 	public Student(long student_id, String name, String email, Address mailingAddress, Address homeAddress) {
 		super();
@@ -90,4 +94,11 @@ public class Student {
 		this.homeAddress = homeAddress;
 	}
 
+	public void setEnrollmentList(List<Enrollment> enrollmentList) {
+		this.enrollmentList = enrollmentList;
+	}
+
+	public List<Enrollment> getEnrollmentList() {
+		return enrollmentList;
+	}
 }
