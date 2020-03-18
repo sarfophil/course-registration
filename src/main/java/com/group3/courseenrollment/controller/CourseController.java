@@ -38,7 +38,7 @@ public class CourseController {
 
 	}
 
-	@PostMapping("/course")
+	@PostMapping("/courses")
 	public ResponseEntity<Course> addCourse(@RequestBody Course course) {
 
 		if (course == null) {
