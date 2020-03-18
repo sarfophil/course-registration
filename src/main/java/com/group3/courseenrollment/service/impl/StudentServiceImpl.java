@@ -6,7 +6,6 @@ import com.group3.courseenrollment.domain.Entry;
 import com.group3.courseenrollment.domain.Section;
 import com.group3.courseenrollment.domain.Student;
 import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
-import com.group3.courseenrollment.repository.EnrollmentRepository;
 import com.group3.courseenrollment.repository.EntryRepository;
 import com.group3.courseenrollment.repository.SectionRepository;
 import com.group3.courseenrollment.repository.StudentRepository;
@@ -52,7 +51,7 @@ public class StudentServiceImpl implements StudentService {
         }
 
         // Lookup for student
-        Optional<Student> optionalStudent = studentRepository.findByStudent_id(studentId);
+        Optional<Student> optionalStudent = studentRepository.findByStudentId(studentId);
         optionalStudent.orElseThrow(()-> new NoSuchElementException("Student not found"));
 
         // Look for Section
@@ -78,8 +77,22 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public List<Enrollment> loadEnrollmentByStudent(Long student) throws NoSuchElementException{
+        // Lookup for student
+        Optional<Student> optionalStudent = studentRepository.findByStudentId(student);
+        optionalStudent.orElseThrow(()-> new NoSuchElementException("Student not found"));
+
+        return optionalStudent.get().getEnrollmentList();
+    }
+
+    @Override
+    public void addStudent(Student student) {
+        studentRepository.save(student);
+    }
+
     private Boolean validateEnrollmentPeriodAndEnrollments(Student student,List<Enrollment> enrollments){
-        Optional<Entry> entryOptional = entryRepository.findByStudentListByStudent_id(student.getStudent_id());
+        Optional<Entry> entryOptional = entryRepository.findByStudentListStudentId(student.getStudent_id());
         if(entryOptional.isPresent()){
             // Compare Period
             Entry entry = entryOptional.get();

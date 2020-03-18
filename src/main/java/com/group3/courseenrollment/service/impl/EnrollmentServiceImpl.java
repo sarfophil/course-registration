@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.repository.EnrollmentRepository;
 import com.group3.courseenrollment.service.EnrollmentService;
 
+@Secured({"ROLE_FACULTY","ROLE_ADMIN","ROLE_STUDENT"})
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService{
 	

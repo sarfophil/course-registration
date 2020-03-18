@@ -1,6 +1,7 @@
 package com.group3.courseenrollment.service;
 
 import com.group3.courseenrollment.domain.Enrollment;
+import com.group3.courseenrollment.domain.Student;
 import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
 
 import java.util.List;
@@ -15,5 +16,8 @@ public interface StudentService {
      */
     public void addEnrollment(Long studentId,List<Enrollment> enrollments,Long sectionId) throws EnrollmentLimitExceededException;
 
+    public List<Enrollment> loadEnrollmentByStudent(Long student);
+
+    public void addStudent(Student student);
 
 }
