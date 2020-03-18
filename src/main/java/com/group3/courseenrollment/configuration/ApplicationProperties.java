@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class ApplicationProperties {
 
     private JWTProperties jwt = new JWTProperties();
-
+    private Integer enrollmentLimitPerStudent;
 
     /**
      * Jwt Properties
