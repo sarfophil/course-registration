@@ -58,6 +58,8 @@ public class EnrollmentController {
 			return ResponseEntity.badRequest().body("Student / Section cannot be found in our system");
 		}
 	}
+
+
 	 
 	@GetMapping("/enrollments/{studentId}")
 	public ResponseEntity<List<Enrollment>> getEnrollment(@PathVariable long studentId) {

@@ -2,6 +2,8 @@ package com.group3.courseenrollment.controller;
 
 
 import java.util.List;
+
+import com.group3.courseenrollment.dto.OfferingDto;
 import com.group3.courseenrollment.exception.NoSuchResourceException;
 
 import com.group3.courseenrollment.domain.Offering;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -58,18 +61,15 @@ public class OfferingController {
 		
 	
 	@PostMapping("offerings")
-	public ResponseEntity<Offering> addOffering(@RequestBody Offering offering){
-		HttpHeaders headers = new HttpHeaders();
-		if (offering == null) {
-			return new ResponseEntity<Offering>(HttpStatus.BAD_REQUEST);
-		}
-		offeringService.addOffering(offering);
-		headers.add("Offering Created  - ", String.valueOf(offering.getId()));
-		return new ResponseEntity<Offering>(offering, headers, HttpStatus.CREATED);
+	public ResponseEntity<Offering> addOffering(@RequestBody @Valid OfferingDto offeringDto){
+
+		Offering offering = offeringService.addOffering(offeringDto);
+
+		return new ResponseEntity<Offering>(offering,HttpStatus.CREATED);
 		 
     }	
 	
-	
+	//TODO: Work on this
 	@PutMapping("/offerings/{offeringId}")
 	public ResponseEntity<Offering> updateOffering(@PathVariable long offeringId,@RequestBody Offering offering) throws NoSuchResourceException{
 		HttpHeaders headers = new HttpHeaders();
