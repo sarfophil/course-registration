@@ -1,5 +1,6 @@
 package com.group3.courseenrollment.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,15 +20,13 @@ public class Entry {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
-	@Temporal(TemporalType.DATE)
-	private Date enrolStartDate;
+	private LocalDate startDate;
+	private LocalDate enrolStartDate;
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Student> studentList = new ArrayList<Student>();
 	private Boolean hasWriteAccess;
 
-	public Entry(String name, Date startDate, Date enrolStartDate) {
+	public Entry(String name, LocalDate startDate, LocalDate enrolStartDate) {
 		super();
 		this.name = name;
 		this.startDate = startDate;
@@ -56,20 +55,28 @@ public class Entry {
 		this.name = name;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEnrolStartDate() {
+	public LocalDate getEnrolStartDate() {
 		return enrolStartDate;
 	}
 
-	public void setEnrolStartDate(Date enrolStartDate) {
+	public void setEnrolStartDate(LocalDate enrolStartDate) {
 		this.enrolStartDate = enrolStartDate;
+	}
+
+	public List<Student> getStudentList() {
+		return studentList;
+	}
+
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
 	}
 
 	public List<Student> getStudents() {

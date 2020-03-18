@@ -14,7 +14,8 @@ public interface StudentService {
      * @param enrollments
      * @throws EnrollmentLimitExceededException
      */
-    public void addEnrollment(Long studentId,List<Enrollment> enrollments,Long sectionId) throws EnrollmentLimitExceededException;
+    public void addEnrollment(Long studentId,List<Enrollment> enrollments,Long sectionId)
+            throws EnrollmentLimitExceededException,NoSuchElementException;
 
     public List<Enrollment> loadEnrollmentByStudent(Long student);
 

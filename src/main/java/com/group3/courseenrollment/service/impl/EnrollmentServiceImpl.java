@@ -38,6 +38,7 @@ public class EnrollmentServiceImpl implements EnrollmentService{
         return enrollment;
     }
 
+    @Secured("ROLE_ADMIN")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Enrollment updateEnrollment(long enrollmentId, Enrollment new_Enrollment) throws NoSuchResourceException{
         Enrollment enrollment = enrollmentRepository.findById(enrollmentId)
@@ -46,6 +47,7 @@ public class EnrollmentServiceImpl implements EnrollmentService{
         return enrollmentRepository.save(enrollment);
     }
 
+    @Secured("ROLE_ADMIN")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<Void> deleteEnrollment(long enrollmentId) throws NoSuchResourceException{
         Enrollment enrollment = enrollmentRepository.findById(enrollmentId)

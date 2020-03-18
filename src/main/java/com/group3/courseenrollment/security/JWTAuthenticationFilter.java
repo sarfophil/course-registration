@@ -6,12 +6,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.group3.courseenrollment.configuration.ApplicationProperties;
 import com.group3.courseenrollment.domain.Credential;
+import com.group3.courseenrollment.domain.Role;
 import com.group3.courseenrollment.dto.JwtTokenDto;
 import com.group3.courseenrollment.exception.InvalidAuthenticationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author SARFO PHILIP
@@ -60,11 +65,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             Credential credential = new ObjectMapper().readValue(request.getInputStream(),Credential.class);
 
 
+            List<GrantedAuthority> mapRolesToGrantedAuthorities = credential
+                    .getRoles()
+                    .stream()
+                    .map(Role::getRole)
+                    .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             credential.getUsername(),
                             credential.getPassword(),
-                            new ArrayList<>()
+                            mapRolesToGrantedAuthorities
                     )
             );
         } catch (IOException e) {
@@ -86,11 +97,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
      */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+
+        // Extract roles into a proper list
+        List<String> roles = authResult.getAuthorities()
+                                            .stream()
+                                            .map(GrantedAuthority::getAuthority)
+                                            .collect(Collectors.toList());
+
         // Creation of Jwt Toke
         String token = JWT.create()
                         .withSubject(((UserDetails)authResult.getPrincipal()).getUsername()) // JWT Subject
                         .withExpiresAt(new Date(System.currentTimeMillis() + applicationProperties.getJwt().getExpirationTime()))// Lifetime of the token
                         .withIssuer(applicationProperties.getJwt().getIssuer())
+                        .withClaim("roles",roles)
                         .withIssuedAt(new Date())
                         .sign(Algorithm.HMAC512(applicationProperties.getJwt().getSecret().getBytes())); // Sign with the secret key
 

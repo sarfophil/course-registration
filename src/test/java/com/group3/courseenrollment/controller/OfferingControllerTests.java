@@ -5,6 +5,7 @@ package com.group3.courseenrollment.controller;
 
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -62,7 +63,7 @@ public class OfferingControllerTests {
 			if(notFoundResult.getResponse().getStatus() == 404 || foundResult.getResponse().getStatus() == 200) {
 				assertTrue(true);
 			}else {
-				assertTrue(false);
+				fail();
 			}
 			
 		// @formatter:on

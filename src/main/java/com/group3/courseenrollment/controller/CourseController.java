@@ -1,5 +1,6 @@
 package com.group3.courseenrollment.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.domain.Course;
 import com.group3.courseenrollment.service.CourseService;
 
+/**
+ *
+ */
 @RestController
 public class CourseController {
 
@@ -47,33 +51,38 @@ public class CourseController {
 		
 		courseService.addCourse(course);
 		
-		//return ResponseEntity.created(URI.create("/courses/" + course.getCode())).build();
-		return new ResponseEntity<Course>(course, HttpStatus.OK);
+		return ResponseEntity.created(URI.create("/courses/" + course.getCode())).build();
 	}
 
 	@GetMapping("/courses/{courseId}")
-	public ResponseEntity<Course> getCourse(@PathVariable long courseId) {
-		Course course = courseService.getCourse(courseId);
-		if (course == null) {
-			return new ResponseEntity<Course>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Course>(course, HttpStatus.OK);
+	public ResponseEntity<Course> getCourse(@PathVariable String courseId) {
+	    try {
+            Course course = courseService.getCourse(courseId);
+            return new ResponseEntity<Course>(course, HttpStatus.OK);
+        } catch (NoSuchResourceException e){
+            return new ResponseEntity<Course>(HttpStatus.NOT_FOUND);
+        }
+
 	}
 
 	@PutMapping("/courses/{courseId}")
-	public ResponseEntity<Course> update(@PathVariable long courseId, @RequestBody Course course) throws NoSuchResourceException  {
+	public ResponseEntity<Course> update(@PathVariable String courseId, @RequestBody Course course)   {
 		HttpHeaders headers = new HttpHeaders();
-		Course isExist = courseService.getCourse(courseId);
-		if (isExist == null) {
+		try {
+			Course isExist = courseService.getCourse(courseId);
+
+			courseService.updateCourse(courseId, course);
+			headers.add("Course Updated  - ", String.valueOf(courseId));
+
+		}catch (NoSuchResourceException e){
 			return new ResponseEntity<Course>(HttpStatus.NOT_FOUND);
 		}
-		courseService.updateCourse(courseId, course);
-		headers.add("Course Updated  - ", String.valueOf(courseId));
 		return new ResponseEntity<Course>(course, headers, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/courses/delete/{courseId}")
-	public ResponseEntity<Void> deleteCourse(@PathVariable long courseId) throws NoSuchResourceException  {
+	public ResponseEntity<Void> deleteCourse(@PathVariable String courseId) {
+
 		courseService.deleteCourse(courseId);
 		return ResponseEntity.noContent().build();
 

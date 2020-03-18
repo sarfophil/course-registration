@@ -14,11 +14,11 @@ public interface CourseService {
 	
 	public Course addCourse(Course course);
 	
-	public Course getCourse(long courseId) throws NoSuchResourceException;
+	public Course getCourse(String courseId) throws NoSuchResourceException;
 	
-	public Course updateCourse(long courseId, Course new_Course) throws NoSuchResourceException;
+	public Course updateCourse(String courseId, Course new_Course) throws NoSuchResourceException;
 	
-	public ResponseEntity<Void> deleteCourse(long courseId) throws NoSuchResourceException;
+	public ResponseEntity<Void> deleteCourse(String courseId) throws NoSuchResourceException;
     
 }
 

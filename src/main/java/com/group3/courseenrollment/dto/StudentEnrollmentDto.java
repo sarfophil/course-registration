@@ -16,4 +16,10 @@ public class StudentEnrollmentDto {
 
     @NonNull
     private List<Enrollment> enrollments;
+
+    public StudentEnrollmentDto(Long studentId,Long sectionId,List<Enrollment> enrollments){
+        this.studentId = studentId;
+        this.sectionId = sectionId;
+        this.enrollments = enrollments;
+    }
 }
