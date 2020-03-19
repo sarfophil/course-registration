@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
-public class WebSecurity extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private CredentialServiceImpl credentialService;
 
@@ -30,6 +31,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(credentialService).passwordEncoder(passwordEncoder());
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -37,13 +39,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         .and()
                         .csrf().disable()
                         .authorizeRequests()
-                        .anyRequest().authenticated()
+                        .antMatchers("/blocks/**",
+                                "/courses/**","/enrollments/**","/offerings/**","/students/**").authenticated()
+                        .antMatchers("/").permitAll()
                         .and()
                         .addFilter(new JWTAuthenticationFilter(authenticationManager(),applicationProperties))
                         .addFilter(new JWTAuthorizationFilter(authenticationManager(),applicationProperties))
                 // this disables session creation on spring security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
+
+
 
 
 }
