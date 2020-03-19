@@ -1,26 +1,18 @@
 package com.group3.courseenrollment.controller;
 
-import java.net.URI;
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import com.group3.courseenrollment.dto.StudentEnrollmentDto;
-import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
-import com.group3.courseenrollment.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.group3.courseenrollment.domain.Enrollment;
-import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.service.EnrollmentService;
 
-import javax.validation.Valid;
-
 @RestController
-@RequestMapping("/enrollments/")
+@RequestMapping("/enrollments")
 public class EnrollmentController {
 	@Autowired
 	private EnrollmentService enrollmentService;

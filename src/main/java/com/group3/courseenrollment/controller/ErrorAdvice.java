@@ -1,7 +1,6 @@
 package com.group3.courseenrollment.controller;
 
 import com.group3.courseenrollment.exception.NoSuchResourceException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -15,7 +14,7 @@ import java.util.NoSuchElementException;
 /**
  * {@link ErrorAdvice} Controller to handle any 500 errors
  */
-@Slf4j
+
 @ControllerAdvice
 public class ErrorAdvice {
 
