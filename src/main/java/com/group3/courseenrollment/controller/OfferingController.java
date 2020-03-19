@@ -1,6 +1,5 @@
 package com.group3.courseenrollment.controller;
 
-
 import com.group3.courseenrollment.domain.Offering;
 import com.group3.courseenrollment.dto.OfferingDto;
 import com.group3.courseenrollment.service.OfferingService;
@@ -13,15 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/offerings")
 public class OfferingController {
-	
+
 	@Autowired
 	private OfferingService offeringService;
 
-	@GetMapping("/")
+	@GetMapping
 	public ResponseEntity<List<Offering>> getAllOfferings() {
 		HttpHeaders headers = new HttpHeaders();
 		List<Offering> offerings = offeringService.getAllOfferings();
@@ -31,8 +29,7 @@ public class OfferingController {
 		headers.add("Number Of Records Found", String.valueOf(offerings.size()));
 		return new ResponseEntity<List<Offering>>(offerings, headers, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/{offeringId}")
 	public ResponseEntity<Offering> getOffering(@PathVariable long offeringId) {
 		Offering offering = offeringService.getOffering(offeringId);
@@ -41,19 +38,14 @@ public class OfferingController {
 		}
 		return new ResponseEntity<Offering>(offering, HttpStatus.OK);
 	}
-		
-	
-	@PostMapping("/")
-	public ResponseEntity<Offering> addOffering(@RequestBody @Valid OfferingDto offeringDto){
+
+	@PostMapping
+	public ResponseEntity<Offering> addOffering(@RequestBody @Valid OfferingDto offeringDto) {
 
 		Offering offering = offeringService.addOffering(offeringDto);
 
-		return new ResponseEntity<Offering>(offering,HttpStatus.CREATED);
-		 
-    }	
-	
+		return new ResponseEntity<Offering>(offering, HttpStatus.CREATED);
 
+	}
 
-
-	
 }

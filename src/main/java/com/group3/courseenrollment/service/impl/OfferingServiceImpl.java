@@ -28,7 +28,7 @@ import javax.swing.text.html.Option;
 
 
 @Service
-@Secured({"ROLE_ADMIN","ROLE_STUDENT"})
+@Secured({"ROLE_ADMIN"})
 public class OfferingServiceImpl implements OfferingService{
 	
 	 	@Autowired

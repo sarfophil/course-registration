@@ -3,7 +3,6 @@ package com.group3.courseenrollment.controller;
 
 import com.group3.courseenrollment.domain.Block;
 import com.group3.courseenrollment.service.BlockService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ public class BlockController {
     @Autowired
     private BlockService blockService;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Block> addBlock(@RequestBody Block block){
         Block savedBlock = blockService.addBlock(block);
         return ResponseEntity.created(URI.create("/blocks/" + savedBlock.getCode())).build();

@@ -13,9 +13,12 @@ import com.group3.courseenrollment.exception.NoSuchResourceException;
 import com.group3.courseenrollment.domain.Course;
 import com.group3.courseenrollment.service.CourseService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  *
  */
+@Slf4j
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
@@ -23,7 +26,7 @@ public class CourseController {
 	@Autowired
 	private CourseService courseService;
 
-	@GetMapping("/")
+	@GetMapping
 	public ResponseEntity<List<Course>> getAllCourses() {
 		HttpHeaders headers = new HttpHeaders();
 		List<Course> courses = courseService.getAllCourses();
@@ -37,7 +40,7 @@ public class CourseController {
 
 	}
 
-	@PostMapping("/")
+	@PostMapping
 	public ResponseEntity<Course> addCourse(@RequestBody Course course) {
 	
 		if (course == null) {
@@ -64,12 +67,11 @@ public class CourseController {
 	public ResponseEntity<Course> update(@PathVariable String courseId, @RequestBody Course course)   {
 		HttpHeaders headers = new HttpHeaders();
 		try {
-			Course isExist = courseService.getCourse(courseId);
-
-			courseService.updateCourse(courseId, course);
+		courseService.updateCourse(courseId, course);
 			headers.add("Course Updated  - ", String.valueOf(courseId));
 
 		}catch (NoSuchResourceException e){
+			log.info("Course not found");
 			return new ResponseEntity<Course>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Course>(course, headers, HttpStatus.OK);

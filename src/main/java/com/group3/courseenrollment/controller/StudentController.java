@@ -2,15 +2,12 @@ package com.group3.courseenrollment.controller;
 
 
 import com.group3.courseenrollment.domain.Enrollment;
-import com.group3.courseenrollment.domain.Student;
-import com.group3.courseenrollment.dto.StudentEnrollmentDto;
 import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
 import com.group3.courseenrollment.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.NoSuchElementException;
