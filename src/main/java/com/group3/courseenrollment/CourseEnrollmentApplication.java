@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
 
 import javax.annotation.PostConstruct;
 
@@ -19,6 +21,7 @@ public class CourseEnrollmentApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CourseEnrollmentApplication.class, args);
 	}
+
 
 
 }
