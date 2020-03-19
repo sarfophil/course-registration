@@ -11,16 +11,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 @Entity
 public class Block {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@NotBlank
+	@Size(min=3, max=7)
 	private String code;
+	@NotBlank
+	@Size(max=45)
 	private String name;
+	@NotBlank
+	@Size(max=45)
 	private String semester;
+	@NotBlank
+	@Size(max=5)
 	private String blockSeqNum;
+	@FutureOrPresent
 	private LocalDate startDate;
+	@Future
 	private LocalDate endDate;
 
 	public Block(String code, String name, String semester, String blockSeqNum, LocalDate startDate, LocalDate endDate) {

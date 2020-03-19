@@ -22,15 +22,9 @@ public class StudentController {
     @PostMapping("/{studentId}/enrollment")
     public ResponseEntity<?> addEnrollment(@PathVariable Long studentId,
                                            @RequestBody List<Enrollment> enrollments) {
-        try {
-            studentService.addEnrollment(studentId,enrollments);
+        studentService.addEnrollment(studentId,enrollments);
 
-            return ResponseEntity.created(URI.create("/enrollments/" + studentId)).build();
-        }catch (EnrollmentLimitExceededException e){
-            return ResponseEntity.badRequest().body("Students are allowed to select only 4 enrollments");
-        }catch (NoSuchElementException e){
-            return ResponseEntity.badRequest().body("Student / Section cannot be found in our system");
-        }
+        return ResponseEntity.created(URI.create("/enrollments/" + studentId)).build();
     }
 
 

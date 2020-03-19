@@ -20,11 +20,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @SpringJUnitWebConfig
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class OfferingControllerTest {
+public class SectionControllerTest {
+
 
     @Autowired
     private WebApplicationContext wac;
@@ -33,7 +33,28 @@ public class OfferingControllerTest {
 
     // Sample Admin Token which last for sometime
     private String adminToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfRkFDVUxUWSIsIlJPTEVfU1RVREVOVCJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NDEwNTA1LCJpYXQiOjE1ODQ1NDY1MDV9.88zgxDMw1EObD8j0x8qWSmqg-TLcA8khq3o5lEZr_7gDoUYsKd5Qrf0mhUYBwkSQd5pgJFaf3PrhxFL5-XtwrQ";
+    // Sample Student Token
+    private String studentToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaW0iLCJyb2xlcyI6WyJST0xFX1NUVURFTlQiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTQxODA5NSwiaWF0IjoxNTg0NTU0MDk1fQ.jCa8gtM5JiQeTFgcQLqYfv-IFLY2PGuN7pOhbqr-Fns350GaJaj8dIY3ogqiPx7G7DaOvwvbxV7N3ovEDPwN8g";
 
+
+    String requestContent = "[\n" +
+            "    {\n" +
+            "        \"enrolStartDate\": \"2020-03-18\",\n" +
+            "        \"enrolEndDate\": \"2020-03-30\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "        \"enrolStartDate\": \"2020-04-11\",\n" +
+            "        \"enrolEndDate\": \"2020-04-30\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "        \"enrolStartDate\": \"2020-05-03\",\n" +
+            "        \"enrolEndDate\": \"2020-05-30\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "        \"enrolStartDate\": \"2020-05-03\",\n" +
+            "        \"enrolEndDate\": \"2020-05-30\"\n" +
+            "    }\n" +
+            "]";
 
     @Before
     public void setUp() throws Exception {
@@ -41,41 +62,34 @@ public class OfferingControllerTest {
     }
 
     @Test
-    public void getAllOfferings() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/offerings")
-                                    .contentType(MediaType.APPLICATION_JSON)
-                                    .header("Authorization","Bearer "+adminToken))
-                                    .andDo(print())
-                                    .andReturn();
-
-        assertTrue(mvcResult.getResponse().getStatus() == 200 || mvcResult.getResponse().getStatus() == 404);
-    }
-
-    @Test
-    public void getOffering() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/offerings/1")
+    public void getSections() throws Exception {
+        mockMvc.perform(get("/sections")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization","Bearer "+adminToken))
                 .andDo(print())
-                .andReturn();
+                .andExpect(status().isOk());
 
-        assertTrue(mvcResult.getResponse().getStatus() == 200 || mvcResult.getResponse().getStatus() == 404);
+
     }
 
     @Test
-    public void addOffering() throws Exception {
-        String offeringJson = "{\n" +
-                "    \"courseId\": \"CS544\",\n" +
-                "    \"blockId\":\"203\",\n" +
-                "    \"sections\":[1]\n" +
+    public void addSections() throws Exception {
+        // Student Selecting enrollment use case
+        mockMvc.perform(post("/students/980/enrollment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestContent)
+                .header("Authorization","Bearer "+studentToken));
+
+        String requestContent = "{\n" +
+                "\t\"enrollmentCodes\":[1,2],\n" +
+                "\t\"facultyId\": 1\n" +
                 "}";
-        MvcResult mvcResult = mockMvc.perform(post("/offerings")
+
+        mockMvc.perform(post("/sections")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(offeringJson)
+                .content(requestContent)
                 .header("Authorization","Bearer "+adminToken))
                 .andDo(print())
-                .andExpect(status().isCreated())
-                .andReturn();
-        assertTrue(mvcResult.getResponse().getStatus() == 201 || mvcResult.getResponse().getStatus() == 404);
+                .andExpect(status().isCreated());
     }
 }

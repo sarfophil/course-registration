@@ -13,15 +13,24 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Entry {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@NotBlank
+	@Size(max=45)
 	private String name;
+	@FutureOrPresent
 	private LocalDate startDate;
+	@FutureOrPresent
 	private LocalDate enrolStartDate;
+	@Future
 	private LocalDate enrolEndDate;
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Student> studentList = new ArrayList<Student>();

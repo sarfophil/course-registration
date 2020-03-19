@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class BlockController {
     private BlockService blockService;
 
     @PostMapping
-    public ResponseEntity<Block> addBlock(@RequestBody Block block){
+    public ResponseEntity<Block> addBlock(@RequestBody @Valid Block block){
         Block savedBlock = blockService.addBlock(block);
         return ResponseEntity.created(URI.create("/blocks/" + savedBlock.getCode())).build();
     }

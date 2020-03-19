@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
 
 @Data
 @Entity
@@ -21,6 +22,7 @@ public class Section {
 	private long id;
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Enrollment> enrollmentList = new ArrayList<>();
+	@Valid
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Faculty faculty;
 	public Section(Faculty faculty) {

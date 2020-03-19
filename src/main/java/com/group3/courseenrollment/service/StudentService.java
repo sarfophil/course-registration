@@ -3,6 +3,7 @@ package com.group3.courseenrollment.service;
 import com.group3.courseenrollment.domain.Enrollment;
 import com.group3.courseenrollment.domain.Student;
 import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
+import com.group3.courseenrollment.exception.HasNoWriteException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,12 +17,14 @@ public interface StudentService {
      * @throws EnrollmentLimitExceededException
      */
     public void addEnrollment(Long studentId,List<Enrollment> enrollments)
-            throws EnrollmentLimitExceededException,NoSuchElementException;
+            throws EnrollmentLimitExceededException,NoSuchElementException, HasNoWriteException;
 
     public List<Enrollment> loadEnrollmentByStudent(Long student);
 
     public Optional<Enrollment> loadStudentEnrollmentByEnrollmentId(Long enrollment,Long studentId);
 
     public void addStudent(Student student);
+
+
 
 }
