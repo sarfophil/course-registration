@@ -12,6 +12,7 @@ public class ApplicationProperties {
 
     private JWTProperties jwt = new JWTProperties();
     private Integer enrollmentLimitPerStudent;
+    private String appDomainName;
 
     /**
      * Jwt Properties

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
 
 @Entity
 public class Offering {
@@ -18,8 +19,10 @@ public class Offering {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String code;
+	@Valid
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Course course;
+	@Valid
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Block block;
 	@OneToMany(cascade = CascadeType.PERSIST)

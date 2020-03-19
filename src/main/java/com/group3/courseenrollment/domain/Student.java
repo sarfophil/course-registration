@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Student {
@@ -13,7 +17,10 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private long studentId;
+	@NotBlank
+	@Size(max=60)
 	private String name;
+	@Email
 	private String email;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)

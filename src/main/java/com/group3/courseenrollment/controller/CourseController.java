@@ -15,6 +15,8 @@ import com.group3.courseenrollment.service.CourseService;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.validation.Valid;
+
 /**
  *
  */
@@ -41,7 +43,7 @@ public class CourseController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Course> addCourse(@RequestBody Course course) {
+	public ResponseEntity<Course> addCourse(@RequestBody @Valid Course course) {
 	
 		if (course == null) {
 			return new ResponseEntity<Course>(HttpStatus.BAD_REQUEST);
@@ -64,7 +66,7 @@ public class CourseController {
 	}
 
 	@PutMapping("/{courseId}")
-	public ResponseEntity<Course> update(@PathVariable String courseId, @RequestBody Course course)   {
+	public ResponseEntity<Course> update(@PathVariable String courseId, @RequestBody @Valid Course course)   {
 		HttpHeaders headers = new HttpHeaders();
 		try {
 		courseService.updateCourse(courseId, course);

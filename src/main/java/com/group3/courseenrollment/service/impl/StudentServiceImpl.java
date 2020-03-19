@@ -6,6 +6,7 @@ import com.group3.courseenrollment.domain.Entry;
 import com.group3.courseenrollment.domain.Section;
 import com.group3.courseenrollment.domain.Student;
 import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
+import com.group3.courseenrollment.exception.HasNoWriteException;
 import com.group3.courseenrollment.repository.EntryRepository;
 import com.group3.courseenrollment.repository.SectionRepository;
 import com.group3.courseenrollment.repository.StudentRepository;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -43,14 +45,14 @@ public class StudentServiceImpl implements StudentService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void addEnrollment(Long studentId,List<Enrollment> enrollments)
-            throws EnrollmentLimitExceededException,NoSuchElementException{
+            throws EnrollmentLimitExceededException,NoSuchElementException,HasNoWriteException{
 
 
         if(enrollments.size() > applicationProperties.getEnrollmentLimitPerStudent()) {
             throw new EnrollmentLimitExceededException("Student Enrollment Exceed");
         }else if (enrollments.size() < applicationProperties.getEnrollmentLimitPerStudent()){
-            throw new EnrollmentLimitExceededException("Student Enrollment should choose "
-                    +applicationProperties.getEnrollmentLimitPerStudent());
+            throw new EnrollmentLimitExceededException("Student should choose "
+                    +applicationProperties.getEnrollmentLimitPerStudent()+" enrollments");
         }
 
 
@@ -60,21 +62,27 @@ public class StudentServiceImpl implements StudentService {
         Optional<Student> optionalStudent = studentRepository.findByStudentId(studentId);
         optionalStudent.orElseThrow(()-> new NoSuchElementException("Student not found"));
 
-
         Student student = optionalStudent.get();
+        // Entry write Access
+        Optional<Entry> entryOptional = entryRepository.findByStudentListEmail(student.getEmail());
+        entryOptional.orElseThrow(()-> new NoSuchElementException("Student not found"));
 
-        if(!student.getEnrollmentList().isEmpty())
-            throw new EnrollmentLimitExceededException("Student Enrollment should choose "
-                +applicationProperties.getEnrollmentLimitPerStudent());
+        Entry entry = entryOptional.get();
+        if(!entry.getHasWriteAccess()){
+            throw new HasNoWriteException("User has no write exception");
+        }
 
+
+
+
+        if(!student.getEnrollmentList().isEmpty()) {
+            throw new EnrollmentLimitExceededException("Student  has choosen "
+                    + applicationProperties.getEnrollmentLimitPerStudent() + " enrollment already");
+        }
 
         if(validateEnrollmentPeriodAndEnrollments(student,enrollments)){
-
             student.setEnrollmentList(enrollments);
-
-
             studentRepository.save(student);
-
         }
 
 
@@ -94,7 +102,6 @@ public class StudentServiceImpl implements StudentService {
     @Secured({"ROLE_FACULTY","ROLE_STUDENT"})
     @Override
     public Optional<Enrollment> loadStudentEnrollmentByEnrollmentId(Long enrollment, Long studentId) {
-
         return studentRepository
                 .findByEnrollmentListIdAndStudentId(enrollment,studentId)
                 .get().getEnrollmentList().stream().filter(enrollment1 -> enrollment1.getId() == enrollment)
@@ -107,6 +114,14 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(student);
     }
 
+
+
+    /**
+     * Validate Student's enrollment Period
+     * @param student
+     * @param enrollments
+     * @return
+     */
     private Boolean validateEnrollmentPeriodAndEnrollments(Student student,List<Enrollment> enrollments){
         Optional<Entry> entryOptional = entryRepository.findByStudentListStudentId(student.getStudent_id());
         if(entryOptional.isPresent()){
@@ -122,6 +137,8 @@ public class StudentServiceImpl implements StudentService {
         }
         return false;
     }
+
+
 
 
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.group3.courseenrollment.domain.Enrollment;
 import com.group3.courseenrollment.service.EnrollmentService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/enrollments")
 public class EnrollmentController {
@@ -21,7 +23,7 @@ public class EnrollmentController {
 	@PutMapping("/{enrollmentId}/{studentId}")
 	public @ResponseBody Enrollment updateEnrollment(@PathVariable Long enrollmentId,
 					 @PathVariable Long studentId,
-					 @RequestBody Enrollment enrollment){
+					 @RequestBody @Valid Enrollment enrollment){
 
 		return enrollmentService.updateEnrollment(enrollmentId,studentId,enrollment);
 	}
