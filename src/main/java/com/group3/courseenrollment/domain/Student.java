@@ -1,6 +1,7 @@
 package com.group3.courseenrollment.domain;
 
 import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+
+@Data
 @Entity
 public class Student {
 	@Id
@@ -47,59 +50,4 @@ public class Student {
 
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public long getStudent_id() {
-		return studentId;
-	}
-
-	public void setStudent_id(long student_id) {
-		this.studentId = student_id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Address getMailingAddress() {
-		return mailingAddress;
-	}
-
-	public void setMailingAddress(Address mailingAddress) {
-		this.mailingAddress = mailingAddress;
-	}
-
-	public Address getHomeAddress() {
-		return homeAddress;
-	}
-
-	public void setHomeAddress(Address homeAddress) {
-		this.homeAddress = homeAddress;
-	}
-
-	public void setEnrollmentList(List<Enrollment> enrollmentList) {
-		this.enrollmentList = enrollmentList;
-	}
-
-	public List<Enrollment> getEnrollmentList() {
-		return enrollmentList;
-	}
 }

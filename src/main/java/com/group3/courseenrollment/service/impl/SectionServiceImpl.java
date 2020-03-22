@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 
 import com.group3.courseenrollment.domain.Enrollment;
 import com.group3.courseenrollment.domain.Faculty;
+import com.group3.courseenrollment.domain.Offering;
 import com.group3.courseenrollment.dto.SectionDto;
 import com.group3.courseenrollment.repository.EnrollmentRepository;
 import com.group3.courseenrollment.repository.FacultyRepository;
+import com.group3.courseenrollment.repository.OfferingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -36,6 +38,9 @@ public class SectionServiceImpl implements SectionService{
 	@Autowired
     private FacultyRepository facultyRepository;
 
+	@Autowired
+    private OfferingRepository offeringRepository;
+
     @Secured("ROLE_ADMIN")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Section> getAllSections(){
@@ -45,19 +50,23 @@ public class SectionServiceImpl implements SectionService{
     @Secured("ROLE_ADMIN")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Section addSection(SectionDto sectionDto) throws NoSuchElementException{
-        List<Enrollment> enrollments = sectionDto.getEnrollmentCodes().stream().map(enrollmentCode->{
-            return enrollmentRepository.findById(enrollmentCode).get();
-        }).collect(Collectors.toList());
+      List<Faculty> faculties = sectionDto.getFacultyList()
+              .stream()
+              .filter(facultyId->{
+                    return facultyRepository.findById(facultyId).isPresent();
+              })
+              .map(facultyId->{
+                  return facultyRepository.findById(facultyId).get();
+              }).collect(Collectors.toList());
 
-        // Lookup for Faculty
-        Optional<Faculty> findFaculty = facultyRepository.findById(sectionDto.getFacultyId());
-        findFaculty.orElseThrow(()->new NoSuchElementException("No Such Faculty"));
+      Optional<Offering> offeringOptional = offeringRepository.findById(sectionDto.getOfferingId());
+      offeringOptional.orElseThrow(NoSuchElementException::new);
 
-        Section section = new Section(findFaculty.get());
-        section.setEnrollmentList(enrollments);
+      Section section = new Section();
+      section.setFaculty(faculties);
+      section.setOffering(offeringOptional.get());
 
-
-        return sectionRepository.save(section);
+      return sectionRepository.save(section);
     }
 
 

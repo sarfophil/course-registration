@@ -1,5 +1,7 @@
 package com.group3.courseenrollment.domain;
 
+import lombok.Data;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +20,8 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+
+@Data
 @Entity
 public class Entry {
 	@Id
@@ -49,71 +53,5 @@ public class Entry {
 
 	}
 
-	public long getId() {
-		return id;
-	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
-
-	public LocalDate getEnrolStartDate() {
-		return enrolStartDate;
-	}
-
-	public void setEnrolStartDate(LocalDate enrolStartDate) {
-		this.enrolStartDate = enrolStartDate;
-	}
-
-	public List<Student> getStudentList() {
-		return studentList;
-	}
-
-	public void setStudentList(List<Student> studentList) {
-		this.studentList = studentList;
-	}
-
-	public List<Student> getStudents() {
-		return studentList;
-	}
-
-	public void setStudents(List<Student> students) {
-		this.studentList = students;
-	}
-
-	public void addStudent(Student student) {
-		studentList.add(student);
-	}
-
-	public void setHasWriteAccess(Boolean hasWriteAccess) {
-		this.hasWriteAccess = hasWriteAccess;
-	}
-
-	public Boolean getHasWriteAccess() {
-		return hasWriteAccess;
-	}
-
-	public LocalDate getEnrolEndDate() {
-		return enrolEndDate;
-	}
-
-	public void setEnrolEndDate(LocalDate enrolEndDate) {
-		this.enrolEndDate = enrolEndDate;
-	}
 }

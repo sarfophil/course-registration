@@ -11,9 +11,7 @@ import java.util.List;
 public class StudentEnrollmentDto {
 
     @NonNull
-    private List<Enrollment> enrollments;
+    private List<Long> enrollments;
 
-    public StudentEnrollmentDto(List<Enrollment> enrollments){
-        this.enrollments = enrollments;
-    }
+
 }

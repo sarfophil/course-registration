@@ -40,11 +40,9 @@ public class OfferingController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Offering> addOffering(@RequestBody @Valid OfferingDto offeringDto) {
-
-		Offering offering = offeringService.addOffering(offeringDto);
-
-		return new ResponseEntity<Offering>(offering, HttpStatus.CREATED);
+	public ResponseEntity<Offering> addOffering(@RequestBody @Valid Offering offering) {
+		offering.setCode(offering.getCourse().getCode()+"-"+offering.getBlock().getCode());
+		return new ResponseEntity<Offering>(offeringService.addOffering(offering), HttpStatus.CREATED);
 
 	}
 

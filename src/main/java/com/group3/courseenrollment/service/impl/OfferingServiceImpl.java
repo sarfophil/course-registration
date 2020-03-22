@@ -52,23 +52,8 @@ public class OfferingServiceImpl implements OfferingService{
 
 	    @Secured("ROLE_ADMIN")
 	    @Transactional(propagation = Propagation.REQUIRES_NEW)
-	    public Offering addOffering(OfferingDto offering){
-			Optional<Course> course = courseRepository.findByCode(offering.getCourseId());
-			course.orElseThrow(()->new NoSuchElementException("No Course Available"));
-
-
-			Optional<Block> block = blockRepository.findByCode(offering.getBlockId());
-			block.orElseThrow(()->new NoSuchElementException("No Such Offering Available"));
-
-			List<Section> sections = offering.getSections().stream().map(sectionId->{
-				return sectionRepository.findById(sectionId).get();
-			}).collect(Collectors.toList());
-
-			// Create Offering Object
-			Offering offering1 = new Offering(course.get(),block.get());
-			offering1.setSections(sections);
-
-	    	return offeringRepository.save(offering1);
+	    public Offering addOffering(Offering offering){
+			return offeringRepository.save(offering);
 	    }
 
 
@@ -80,10 +65,11 @@ public class OfferingServiceImpl implements OfferingService{
 
 
 	    @Transactional(propagation = Propagation.REQUIRES_NEW)
-	    public Offering updateOffering(long offeringId, Offering new_Offering) throws NoSuchResourceException{
+	    public Offering updateOffering(long offeringId, Offering offering1) throws NoSuchResourceException{
 	        Offering offering = offeringRepository.findById(offeringId)
 	                .orElseThrow(() -> new NoSuchResourceException("Can't find offering", offeringId));
-	        offering.setCode(new_Offering.getCode());
+	        offering.setBlock(offering1.getBlock());
+	        offering.setCourse(offering1.getCourse());
 
 			return offeringRepository.save(offering);
 	    }

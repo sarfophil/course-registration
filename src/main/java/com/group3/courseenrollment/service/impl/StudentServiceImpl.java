@@ -5,8 +5,10 @@ import com.group3.courseenrollment.domain.Enrollment;
 import com.group3.courseenrollment.domain.Entry;
 import com.group3.courseenrollment.domain.Section;
 import com.group3.courseenrollment.domain.Student;
+import com.group3.courseenrollment.dto.StudentEnrollmentDto;
 import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
 import com.group3.courseenrollment.exception.HasNoWriteException;
+import com.group3.courseenrollment.repository.EnrollmentRepository;
 import com.group3.courseenrollment.repository.EntryRepository;
 import com.group3.courseenrollment.repository.SectionRepository;
 import com.group3.courseenrollment.repository.StudentRepository;
@@ -22,6 +24,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -40,17 +43,20 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private ApplicationProperties applicationProperties;
 
+    @Autowired
+    private EnrollmentRepository enrollmentRepository;
+
 
     @Secured("ROLE_STUDENT")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public void addEnrollment(Long studentId,List<Enrollment> enrollments)
+    public void addEnrollment(Long studentId, StudentEnrollmentDto studentEnrollmentDto)
             throws EnrollmentLimitExceededException,NoSuchElementException,HasNoWriteException{
 
 
-        if(enrollments.size() > applicationProperties.getEnrollmentLimitPerStudent()) {
+        if(studentEnrollmentDto.getEnrollments().size() > applicationProperties.getEnrollmentLimitPerStudent()) {
             throw new EnrollmentLimitExceededException("Student Enrollment Exceed");
-        }else if (enrollments.size() < applicationProperties.getEnrollmentLimitPerStudent()){
+        }else if (studentEnrollmentDto.getEnrollments().size() < applicationProperties.getEnrollmentLimitPerStudent()){
             throw new EnrollmentLimitExceededException("Student should choose "
                     +applicationProperties.getEnrollmentLimitPerStudent()+" enrollments");
         }
@@ -79,6 +85,14 @@ public class StudentServiceImpl implements StudentService {
             throw new EnrollmentLimitExceededException("Student  has choosen "
                     + applicationProperties.getEnrollmentLimitPerStudent() + " enrollment already");
         }
+
+        List<Enrollment> enrollments = studentEnrollmentDto.getEnrollments().stream()
+                .filter(enrolId->{
+                    return enrollmentRepository.findById(enrolId).isPresent();
+                })
+                .map(enrolId->{
+                    return enrollmentRepository.findById(enrolId).get();
+                }).collect(Collectors.toList());
 
         if(validateEnrollmentPeriodAndEnrollments(student,enrollments)){
             student.setEnrollmentList(enrollments);
@@ -123,7 +137,7 @@ public class StudentServiceImpl implements StudentService {
      * @return
      */
     private Boolean validateEnrollmentPeriodAndEnrollments(Student student,List<Enrollment> enrollments){
-        Optional<Entry> entryOptional = entryRepository.findByStudentListStudentId(student.getStudent_id());
+        Optional<Entry> entryOptional = entryRepository.findByStudentListStudentId(student.getStudentId());
         if(entryOptional.isPresent()){
             // Compare Period
             Entry entry = entryOptional.get();

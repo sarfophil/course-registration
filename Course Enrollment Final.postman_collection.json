@@ -16,7 +16,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaW0iLCJyb2xlcyI6WyJST0xFX1NUVURFTlQiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTQxODA5NSwiaWF0IjoxNTg0NTU0MDk1fQ.jCa8gtM5JiQeTFgcQLqYfv-IFLY2PGuN7pOhbqr-Fns350GaJaj8dIY3ogqiPx7G7DaOvwvbxV7N3ovEDPwN8g",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NTEzMzEyLCJpYXQiOjE1ODQ2NDkzMTJ9.go18rbf2cAWSYWOyVuhOuv1LM40UT_SJkLAnz95DSV8-UwYBELDDHuIKs4WqDV-L5Yz3vWnQtPl6aOsmROLsRA",
 									"type": "string"
 								}
 							]
@@ -36,7 +36,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    {\n        \"enrolStartDate\": \"2020-03-18\",\n        \"enrolEndDate\": \"2020-03-30\"\n    },\n    {\n        \"enrolStartDate\": \"2020-04-11\",\n        \"enrolEndDate\": \"2020-04-30\"\n    },\n    {\n        \"enrolStartDate\": \"2020-05-03\",\n        \"enrolEndDate\": \"2020-05-30\"\n    },\n    {\n        \"enrolStartDate\": \"2020-05-03\",\n        \"enrolEndDate\": \"2020-05-30\"\n    }\n]",
+							"raw": "[\n    {\n        \"enrolStartDate\": \"2020-03-20\",\n        \"enrolEndDate\": \"2020-03-30\"\n    },\n    {\n        \"enrolStartDate\": \"2020-04-11\",\n        \"enrolEndDate\": \"2020-04-30\"\n    },\n    {\n        \"enrolStartDate\": \"2020-05-03\",\n        \"enrolEndDate\": \"2020-05-30\"\n    },\n    {\n        \"enrolStartDate\": \"2020-05-03\",\n        \"enrolEndDate\": \"2020-05-30\"\n    }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/students/980/enrollment/",
+							"raw": "http://localhost:8080/students/980/enrollment",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -53,8 +53,7 @@
 							"path": [
 								"students",
 								"980",
-								"enrollment",
-								""
+								"enrollment"
 							]
 						},
 						"description": "Student can add up to 4 enrollments"
@@ -127,6 +126,16 @@
 						{
 							"name": "Add Course",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NzAyNDkxLCJpYXQiOjE1ODQ4Mzg0OTF9.skxGchI2uXnjwbL8q_pDmdvNe9pFkLCEK7_-Yovj4RU9QTrvFhBSLPHUSdWhBb7arAgIsNZC7BptuxwWFr_Q0g",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
 									{
@@ -142,7 +151,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"code\":\"CS544\",\n\t\"name\":\"Enterprise Architecture\",\n\t\"description\":\"Spring and Hibernate\"\n}",
+									"raw": "{\n\t\"code\":\"CS345\",\n\t\"name\":\"Enterprise Architecture\",\n\t\"description\":\"Spring and Hibernate\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -167,6 +176,16 @@
 						{
 							"name": "Courses",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NDkwNjY5LCJpYXQiOjE1ODQ2MjY2Njl9.91Kgtc3ksVSs59jeUaLgyOnIYgyYuYCuuJoSQycXpNHZZHpQsbH0TMkGM_wWDyQnPuMmTPljhvp42TGe58Ewog",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [
 									{
@@ -181,7 +200,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/courses/CS544",
+									"raw": "http://localhost:8080/courses/CSS54",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -189,7 +208,7 @@
 									"port": "8080",
 									"path": [
 										"courses",
-										"CS544"
+										"CSS54"
 									]
 								},
 								"description": "Courses List"
@@ -219,7 +238,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\t\n\t\"id\": 1,\n\t\"code\":\"CS544\",\n\t\"name\":\"Enterprise Architecture\",\n\t\"description\":\"Spring and Hibernatespjil\"\n}",
+									"raw": "{\t\n\t\"id\": 1,\n\t\"code\":\"CS544\",\n\t\"name\":\"Enterprise Architecture\",\n\t\"description\":\"Spring and Hibernates\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -227,7 +246,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/courses/CS544",
+									"raw": "http://localhost:8080/courses/CSS54",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -235,7 +254,7 @@
 									"port": "8080",
 									"path": [
 										"courses",
-										"CS544"
+										"CSS54"
 									]
 								}
 							},
@@ -252,11 +271,21 @@
 						{
 							"name": "Add offering",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NTExNjM3LCJpYXQiOjE1ODQ2NDc2Mzd9.QOWt9i93L_3yvpqOThRmalgq_sc8fe0aMYX5UIbbtkhnz3dUFogSEsxl-0n6u6k51WgU_RBWSIMNsA0MgE7uzA",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"courseId\": \"CS544\",\n    \"blockId\":\"203\",\n    \"sections\":[1]\n}",
+									"raw": "{\n    \"block\": {\n        \"code\": \"263\",\n        \"name\": \"Block B\",\n        \"semester\": \"Fall\",\n        \"blockSeqNum\": \"3949\",\n        \"startDate\": \"2020-03-22\",\n        \"endDate\": \"2020-04-22\",\n        \"id\": 1\n    },\n    \"course\": {\n        \"id\": 1,\n        \"code\": \"CS345\",\n        \"name\": \"Enterprise Architecture\",\n        \"description\": \"Spring and Hibernate\"\n    },\n    \"id\": 1\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -300,6 +329,16 @@
 						{
 							"name": "View All Offerings",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NTExNjM3LCJpYXQiOjE1ODQ2NDc2Mzd9.QOWt9i93L_3yvpqOThRmalgq_sc8fe0aMYX5UIbbtkhnz3dUFogSEsxl-0n6u6k51WgU_RBWSIMNsA0MgE7uzA",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -326,6 +365,16 @@
 						{
 							"name": "Update Enrollment",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NTEzMzk4LCJpYXQiOjE1ODQ2NDkzOTh9.qJ3U8zR_GHotyVRM2fgXhS2yM5bjmT4Nhz7rJkaKZ5AcZYSLzi3sD9GDEPQMy2c5ujKY0Mr0Ir0M52N3iDC9yQ",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [
 									{
@@ -365,6 +414,44 @@
 								"description": "Update an enrollment (Admin/Faculty)"
 							},
 							"response": []
+						},
+						{
+							"name": "Add Enrollment",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NTExNjM3LCJpYXQiOjE1ODQ2NDc2Mzd9.QOWt9i93L_3yvpqOThRmalgq_sc8fe0aMYX5UIbbtkhnz3dUFogSEsxl-0n6u6k51WgU_RBWSIMNsA0MgE7uzA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"endDate\": \"2020-04-23\",\n    \"sectionId\": 1,\n    \"startDate\": \"2020-03-23\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/enrollments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"enrollments"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
@@ -381,16 +468,22 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfRkFDVUxUWSIsIlJPTEVfU1RVREVOVCJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NDEwNTA1LCJpYXQiOjE1ODQ1NDY1MDV9.88zgxDMw1EObD8j0x8qWSmqg-TLcA8khq3o5lEZr_7gDoUYsKd5Qrf0mhUYBwkSQd5pgJFaf3PrhxFL5-XtwrQ",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NTExNjM3LCJpYXQiOjE1ODQ2NDc2Mzd9.QOWt9i93L_3yvpqOThRmalgq_sc8fe0aMYX5UIbbtkhnz3dUFogSEsxl-0n6u6k51WgU_RBWSIMNsA0MgE7uzA",
 											"type": "string"
 										}
 									]
 								},
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"code\":\"203\",\n\t\"name\":\"Block A\",\n\t\"semester\":\"Fall\",\n\t\"blockSeqNum\":\"3949\",\n\t\"startDate\":\"2020-03-18\",\n\t\"endDate\":\"2020-04-18\"\n}",
+									"raw": "{\n\t\"code\":\"263\",\n\t\"name\":\"Block B\",\n\t\"semester\":\"Fall\",\n\t\"blockSeqNum\":\"3949\",\n\t\"startDate\":\"2020-03-22\",\n\t\"endDate\":\"2020-04-22\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -422,7 +515,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfRkFDVUxUWSIsIlJPTEVfU1RVREVOVCJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NDEwNTA1LCJpYXQiOjE1ODQ1NDY1MDV9.88zgxDMw1EObD8j0x8qWSmqg-TLcA8khq3o5lEZr_7gDoUYsKd5Qrf0mhUYBwkSQd5pgJFaf3PrhxFL5-XtwrQ",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NTA1Nzc0LCJpYXQiOjE1ODQ2NDE3NzR9.o0BwVL4LsoZAY8KLhKbaUejmX02jZiijXGAP3b2_7TyqvUb4ikZ0Bx2zThLRqwg0Ya0nnXZKnHvW1S6PB-_pXw",
 											"type": "string"
 										}
 									]
@@ -465,11 +558,21 @@
 						{
 							"name": "Add Section",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NzAyNDkxLCJpYXQiOjE1ODQ4Mzg0OTF9.skxGchI2uXnjwbL8q_pDmdvNe9pFkLCEK7_-Yovj4RU9QTrvFhBSLPHUSdWhBb7arAgIsNZC7BptuxwWFr_Q0g",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"enrollmentCodes\":[1,2],\n\t\"facultyId\": 1\n}",
+									"raw": "{\n  \"facultyList\": [1],\n  \"offeringId\": 1\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -485,6 +588,51 @@
 									"port": "8080",
 									"path": [
 										"sections"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Faculty",
+					"item": [
+						{
+							"name": "Create Facultyu",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NzAyNDkxLCJpYXQiOjE1ODQ4Mzg0OTF9.skxGchI2uXnjwbL8q_pDmdvNe9pFkLCEK7_-Yovj4RU9QTrvFhBSLPHUSdWhBb7arAgIsNZC7BptuxwWFr_Q0g",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Prof. Khan\",\n\t\"title\":\" Compro Depart\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/faculties",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"faculties"
 									]
 								}
 							},
@@ -511,7 +659,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmtoeWEiLCJyb2xlcyI6WyJST0xFX0ZBQ1VMVFkiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTQyOTgyMiwiaWF0IjoxNTg0NTY1ODIyfQ.4czi5QKdpns0Vb01rYWIGVxUpXqyUzJ19vtiBTxji5nYP6jLxou2oyEChp_BLTF_TnaLVXs25rfNbq-I9-Au8w",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmtoeWEiLCJyb2xlcyI6WyJST0xFX0ZBQ1VMVFkiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTUxMzU4MiwiaWF0IjoxNTg0NjQ5NTgyfQ.zKjug2H-5CSm4GutDaxHldd4sxDVJhogLeLN9CjpHFZjJsJPqjeK61ukCeDhnpWIZQKI1k3cm2JHQtzbomrGpg",
 									"type": "string"
 								}
 							]
@@ -523,7 +671,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/students/67/enrollment/",
+							"raw": "http://localhost:8080/students/980/enrollment/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -531,7 +679,7 @@
 							"port": "8080",
 							"path": [
 								"students",
-								"67",
+								"980",
 								"enrollment",
 								""
 							]
@@ -547,7 +695,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaW0iLCJyb2xlcyI6WyJST0xFX1NUVURFTlQiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTQxODA5NSwiaWF0IjoxNTg0NTU0MDk1fQ.jCa8gtM5JiQeTFgcQLqYfv-IFLY2PGuN7pOhbqr-Fns350GaJaj8dIY3ogqiPx7G7DaOvwvbxV7N3ovEDPwN8g",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmtoeWEiLCJyb2xlcyI6WyJST0xFX0ZBQ1VMVFkiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTUxMzU4MiwiaWF0IjoxNTg0NjQ5NTgyfQ.zKjug2H-5CSm4GutDaxHldd4sxDVJhogLeLN9CjpHFZjJsJPqjeK61ukCeDhnpWIZQKI1k3cm2JHQtzbomrGpg",
 									"type": "string"
 								}
 							]

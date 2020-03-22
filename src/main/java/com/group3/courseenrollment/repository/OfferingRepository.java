@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.group3.courseenrollment.domain.Offering;
 
+import java.util.Optional;
+
 @Repository
 public interface OfferingRepository extends JpaRepository<Offering, Long> {
+    Optional<Offering> findByCode(String code);
 }
