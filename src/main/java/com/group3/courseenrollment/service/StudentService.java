@@ -2,6 +2,7 @@ package com.group3.courseenrollment.service;
 
 import com.group3.courseenrollment.domain.Enrollment;
 import com.group3.courseenrollment.domain.Student;
+import com.group3.courseenrollment.dto.StudentEnrollmentDto;
 import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
 import com.group3.courseenrollment.exception.HasNoWriteException;
 
@@ -13,10 +14,10 @@ public interface StudentService {
     /**
      * student should be able to create up to 4 enrollments for the future 4
      * blocks during the enrollment period.
-     * @param enrollments
+     * @param studentEnrollmentDto
      * @throws EnrollmentLimitExceededException
      */
-    public void addEnrollment(Long studentId,List<Enrollment> enrollments)
+    public void addEnrollment(Long studentId, StudentEnrollmentDto studentEnrollmentDto)
             throws EnrollmentLimitExceededException,NoSuchElementException, HasNoWriteException;
 
     public List<Enrollment> loadEnrollmentByStudent(Long student);

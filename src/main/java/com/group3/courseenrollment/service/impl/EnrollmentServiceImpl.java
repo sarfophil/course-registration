@@ -1,7 +1,13 @@
 package com.group3.courseenrollment.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.group3.courseenrollment.domain.Section;
+import com.group3.courseenrollment.dto.EnrollmentDto;
+import com.group3.courseenrollment.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -21,9 +27,25 @@ public class EnrollmentServiceImpl implements EnrollmentService{
 	@Autowired
     private EnrollmentRepository enrollmentRepository;
 
+	@Autowired
+    private SectionRepository sectionRepository;
+
     @Transactional(propagation =Propagation.REQUIRES_NEW)
     public List<Enrollment> getAllEnrollments(){
         return enrollmentRepository.findAll();
+    }
+
+
+    @Secured("ROLE_ADMIN")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public Enrollment addEnrollment(EnrollmentDto enrollmentDto) throws NoSuchElementException{
+        Optional<Section> sectionOptional = sectionRepository.findById(enrollmentDto.getSectionId());
+        sectionOptional.orElseThrow(NoSuchElementException::new);
+
+        Enrollment enrollment = new Enrollment(sectionOptional.get(),enrollmentDto.getStartDate(),enrollmentDto.getEndDate());
+
+        return enrollmentRepository.save(enrollment);
     }
 
 
@@ -33,6 +55,8 @@ public class EnrollmentServiceImpl implements EnrollmentService{
                 .orElseThrow(() -> new NoSuchResourceException("Can't find Enrollment", enrollmentId));
         return enrollment;
     }
+
+
 
     @Secured("ROLE_ADMIN")
     @Transactional(propagation = Propagation.REQUIRES_NEW)

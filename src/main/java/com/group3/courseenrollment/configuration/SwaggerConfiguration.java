@@ -18,7 +18,7 @@ import java.util.Collections;
 public class SwaggerConfiguration {
     @Bean
     public Docket productApi() {
-    
+
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.basePackage("com.group3.courseenrollment"))
                 .build().apiInfo(apiDetails());

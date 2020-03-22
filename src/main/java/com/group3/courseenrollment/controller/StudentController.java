@@ -2,6 +2,7 @@ package com.group3.courseenrollment.controller;
 
 
 import com.group3.courseenrollment.domain.Enrollment;
+import com.group3.courseenrollment.dto.StudentEnrollmentDto;
 import com.group3.courseenrollment.exception.EnrollmentLimitExceededException;
 import com.group3.courseenrollment.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class StudentController {
 
     @PostMapping("/{studentId}/enrollment")
     public ResponseEntity<?> addEnrollment(@PathVariable Long studentId,
-                                           @RequestBody List<Enrollment> enrollments) {
+                                           @RequestBody StudentEnrollmentDto enrollments) {
         studentService.addEnrollment(studentId,enrollments);
 
         return ResponseEntity.created(URI.create("/enrollments/" + studentId)).build();
