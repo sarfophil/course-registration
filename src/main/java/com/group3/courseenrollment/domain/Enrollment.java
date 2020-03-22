@@ -18,7 +18,6 @@ public class Enrollment {
 	private long id;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "section_id")
 	private Section section;
 
 	@FutureOrPresent
@@ -31,6 +30,7 @@ public class Enrollment {
 		super();
 		this.enrolStartDate = enrolStartDate;
 		this.enrolEndDate = enrolEndDate;
+		this.section = section;
 	}
 
 	public Enrollment() {

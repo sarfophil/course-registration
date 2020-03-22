@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -22,7 +23,7 @@ public class StudentController {
 
     @PostMapping("/{studentId}/enrollment")
     public ResponseEntity<?> addEnrollment(@PathVariable Long studentId,
-                                           @RequestBody StudentEnrollmentDto enrollments) {
+                                           @RequestBody @Valid StudentEnrollmentDto enrollments) {
         studentService.addEnrollment(studentId,enrollments);
 
         return ResponseEntity.created(URI.create("/enrollments/" + studentId)).build();

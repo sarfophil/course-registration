@@ -1,5 +1,5 @@
 # Course Enrollment Webservice
-Restful Course Enrollment Webservice to automate the process of enrollment for students.
+Restful Course Enrollment Webservice to automate the process of enrollment of students.
 
 ## Quick Start
 	mvn spring-boot:run
