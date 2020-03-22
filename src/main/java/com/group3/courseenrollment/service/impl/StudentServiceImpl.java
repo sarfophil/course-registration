@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
     public void addEnrollment(Long studentId, StudentEnrollmentDto studentEnrollmentDto)
             throws EnrollmentLimitExceededException,NoSuchElementException,HasNoWriteException{
 
-
+        // Validates the enrollment if its up to 4 enrollments
         if(studentEnrollmentDto.getEnrollments().size() > applicationProperties.getEnrollmentLimitPerStudent()) {
             throw new EnrollmentLimitExceededException("Student Enrollment Exceed");
         }else if (studentEnrollmentDto.getEnrollments().size() < applicationProperties.getEnrollmentLimitPerStudent()){
@@ -77,9 +77,6 @@ public class StudentServiceImpl implements StudentService {
         if(!entry.getHasWriteAccess()){
             throw new HasNoWriteException("User has no write exception");
         }
-
-
-
 
         if(!student.getEnrollmentList().isEmpty()) {
             throw new EnrollmentLimitExceededException("Student  has choosen "

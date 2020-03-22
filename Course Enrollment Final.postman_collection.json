@@ -9,72 +9,32 @@
 			"name": "Student ",
 			"item": [
 				{
-					"name": "Add Enrollments By a student Copy",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NTEzMzEyLCJpYXQiOjE1ODQ2NDkzMTJ9.go18rbf2cAWSYWOyVuhOuv1LM40UT_SJkLAnz95DSV8-UwYBELDDHuIKs4WqDV-L5Yz3vWnQtPl6aOsmROLsRA",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTM3NTAyNiwiaWF0IjoxNTg0NTExMDI2fQ.9UzmCUJPQKHoT9AwBBQH-v3cmy5TIT5tW_EkWGqdJQ9WzedaWuzOYS9LCwzIsPRV2RROsMRDdfIEgyEqf7w1cQ",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n    {\n        \"enrolStartDate\": \"2020-03-20\",\n        \"enrolEndDate\": \"2020-03-30\"\n    },\n    {\n        \"enrolStartDate\": \"2020-04-11\",\n        \"enrolEndDate\": \"2020-04-30\"\n    },\n    {\n        \"enrolStartDate\": \"2020-05-03\",\n        \"enrolEndDate\": \"2020-05-30\"\n    },\n    {\n        \"enrolStartDate\": \"2020-05-03\",\n        \"enrolEndDate\": \"2020-05-30\"\n    }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/students/980/enrollment",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"students",
-								"980",
-								"enrollment"
-							]
-						},
-						"description": "Student can add up to 4 enrollments"
-					},
-					"response": []
-				},
-				{
 					"name": "Load Enrollment By Student",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaW0iLCJyb2xlcyI6WyJST0xFX1NUVURFTlQiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTQxODA5NSwiaWF0IjoxNTg0NTU0MDk1fQ.jCa8gtM5JiQeTFgcQLqYfv-IFLY2PGuN7pOhbqr-Fns350GaJaj8dIY3ogqiPx7G7DaOvwvbxV7N3ovEDPwN8g",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaW0iLCJyb2xlcyI6WyJST0xFX1NUVURFTlQiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTc1NjU0MSwiaWF0IjoxNTg0ODkyNTQxfQ.2ZaVp20NbmMhw0G00eSwvYAhxHD-xHvBX8w2_4ZAkva_pUB6Xr6zzsYP_4XJ3rTPQRy54LV3bCCk2diOz78UGg",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/students/980/enrollment",
 							"protocol": "http",
@@ -95,6 +55,16 @@
 				{
 					"name": "Load Student Enrollment By Enrollment Id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaW0iLCJyb2xlcyI6WyJST0xFX1NUVURFTlQiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTc1NjU0MSwiaWF0IjoxNTg0ODkyNTQxfQ.2ZaVp20NbmMhw0G00eSwvYAhxHD-xHvBX8w2_4ZAkva_pUB6Xr6zzsYP_4XJ3rTPQRy54LV3bCCk2diOz78UGg",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -109,6 +79,46 @@
 								"980",
 								"enrollment",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enroll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaW0iLCJyb2xlcyI6WyJST0xFX1NUVURFTlQiXSwiaXNzIjoid2luZC1ncm91cCIsImV4cCI6MTU4NTc1NjU0MSwiaWF0IjoxNTg0ODkyNTQxfQ.2ZaVp20NbmMhw0G00eSwvYAhxHD-xHvBX8w2_4ZAkva_pUB6Xr6zzsYP_4XJ3rTPQRy54LV3bCCk2diOz78UGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"enrollments\": [1,2,3,4]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/students/980/enrollment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"students",
+								"980",
+								"enrollment"
 							]
 						}
 					},
@@ -432,7 +442,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"endDate\": \"2020-04-23\",\n    \"sectionId\": 1,\n    \"startDate\": \"2020-03-23\"\n}",
+									"raw": "{\n    \"endDate\": \"2020-10-23\",\n    \"sectionId\": 1,\n    \"startDate\": \"2020-11-23\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -730,7 +740,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"phil\",\n    \"password\": \"super\"\n}\n\n",
+					"raw": "{\n    \"username\": \"jim\",\n    \"password\": \"super\"\n}\n\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -750,6 +760,38 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaGlsIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpc3MiOiJ3aW5kLWdyb3VwIiwiZXhwIjoxNTg1NzU1NjQ0LCJpYXQiOjE1ODQ4OTE2NDR9.9K9vHrRmZYISHArI_REGJ2_inD-l9YDL46cyu7C8SIXF0rZrEyvB0T-lm5lnSiUJ2uO2m3f8VfY2Cy57UJ9qCA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6f270f27-cf1f-41ff-83a6-725c3c816f0e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7d1cae79-14b0-4b98-b94b-384cacb52fe6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"protocolProfileBehavior": {}

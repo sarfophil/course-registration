@@ -23,6 +23,7 @@ mvnw
 mvnw.cmd
 course-enrollment.iml
 pom.xml
+src/main/resources/application.yaml
 
 
 ### NetBeans ###
